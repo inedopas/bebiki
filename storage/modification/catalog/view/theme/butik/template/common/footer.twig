@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       {% if informations %}
-        <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="col-md-4 col-sm-6 col-xs-6">
           <h5>{{ footer_column1 ? footer_column1 : text_information }}</h5>
           <ul class="list-unstyled footer-link">
             {% for information in informations %}
@@ -11,7 +11,7 @@
             {% if butik_footer_contact_status %}<li><a href="{{ contact }}">{{ text_contact }}</a></li>{% endif %}
 
 				<li><a href="{{ testimonial }}">{{ text_testimonial }}</a></li>
-			
+
             {% if butik_footer_sitemap_status %}<li><a href="{{ sitemap }}">{{ text_sitemap }}</a></li>{% endif %}
             {% if footer1_link_add is not empty %}
             {% for key, value in footer1_link_add %}
@@ -21,7 +21,7 @@
           </ul>
         </div>
       {% endif %}
-      <div class="col-md-3 col-sm-6 col-xs-6">
+      <div class="col-md-4 col-sm-6 col-xs-6">
         <h5>{{ footer_column2 ? footer_column2 : text_extra }}</h5>
         <ul class="list-unstyled footer-link">
           {% if butik_footer_account_status %}<li><a href="{{ account }}">{{ text_account }}</a></li>{% endif %}
@@ -40,7 +40,7 @@
           {% endif %}
         </ul>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-6">
+      <div class="col-md-4 col-sm-6 col-xs-12">
         <h5>{{ footer_column3 ? footer_column3 : text_footer_title }}</h5>
         <ul class="list-unstyled footer-cont">
           {% if butik_footer_phone1 != '' %}
@@ -69,7 +69,7 @@
           {% endif %}
         </ul>
       </div>
-      <div class="col-md-3 col-sm-6 col-xs-6">
+      <div class="col-md-12">
         {% if butik_footer_logo %}
         <div id="logo-footer">
           <img src="{{ butik_footer_logo }}" title="" alt="" class="img-responsive" />
