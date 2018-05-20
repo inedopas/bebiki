@@ -67,6 +67,32 @@ class ModelModuleGeneratorSEO extends Model
         }
     }
 
+    public function generateProductsMetaTitle($template, $transliterate)
+    {
+        $products = $this->getProductsForMetaTitle();
+        foreach ($products as $product) {
+            $finalCategories = array();
+            $categories = $this->getProductCategories($product['product_id'], $product['language_id']);
+            foreach ($categories as $category) {
+                $finalCategories[] = $category['name'];
+            }
+            $tags = array('[product_name]' => $product['name'],
+                '[model_name]' => $product['model'],
+                '[manufacturer_name]' => $product['manufacturer_name'],
+                '[categories_names]' => implode(',', $finalCategories)
+
+            );
+            $finalKeywords = array();
+            $keywords = explode(',', strtr($template, $tags));
+            foreach ($keywords as $keyword) {
+                $finalKeywords[] = ($transliterate ? $this->makeSlugs(trim($keyword), 0, false) : trim($keyword));
+            }
+            $finalKeywords = array_filter(array_unique($finalKeywords));
+            $finalKeywords = implode(', ', $finalKeywords);
+            $this->db->query("UPDATE " . DB_PREFIX . "product_description SET meta_title = '" . $this->db->escape($finalKeywords) . "' where product_id = " . (int)$product['product_id'] . " and language_id = " . (int)$product['language_id']);
+        }
+    }
+
     public function generateProductsMetaDescription($template, $transliterate)
     {
         $products = $this->getProductsForMetaDescription();
@@ -192,6 +218,12 @@ class ModelModuleGeneratorSEO extends Model
     private function getManufacturers($overwrite)
     {
         $query = $this->db->query("SELECT m.manufacturer_id, m.name FROM " . DB_PREFIX . "manufacturer m LEFT JOIN " . DB_PREFIX . "seo_url a ON (CONCAT('manufacturer_id=', m.manufacturer_id) = a.query) AND a.language_id = ". (int)$this->config->get('config_language_id') . ($overwrite ? '' : ' WHERE a.query IS NULL') . " ORDER BY m.name ASC");
+        return $query->rows;
+    }
+
+    private function getProductsForMetaTitle()
+    {
+        $query = $this->db->query("SELECT p.product_id, pd.name, p.model, m.name as manufacturer_name, pd.description, pd.language_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) ORDER BY pd.name ASC");
         return $query->rows;
     }
 

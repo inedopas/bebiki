@@ -16,6 +16,7 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
             'generator_seo_products_suffix' => '.html',
             'generator_seo_manufacturers_template' => '[manufacturer_name]',
             'generator_seo_manufacturers_suffix' => '.html',
+            'generator_seo_title_template' => '[product_name]',
             'generator_seo_description_template' => '[product_name], [model_name], [manufacturer_name], [categories_names]',
             'generator_seo_meta_template' => '[product_name], [model_name], [manufacturer_name], [categories_names]',
             'generator_seo_tags_template' => '[product_name], [model_name], [manufacturer_name], [categories_names]',
@@ -42,7 +43,10 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
             if (isset($this->request->post['manufacturers'])) {
                 $this->model_module_generator_seo->generateManufacturers($this->request->post['manufacturers_template'], $this->request->post['manufacturers_suffix'], $this->request->post['overwrite_manufacturers'] == 'overwrite', $this->request->post['do_transliteration']);
             }
-           if (isset($this->request->post['meta_description'])) {
+            if (isset($this->request->post['meta_title'])) {
+                 $this->model_module_generator_seo->generateProductsMetaTitle($this->request->post['title_template'], $this->request->post['do_transliteration']);
+             }
+            if (isset($this->request->post['meta_description'])) {
                 $this->model_module_generator_seo->generateProductsMetaDescription($this->request->post['description_template'], $this->request->post['do_transliteration']);
             }
             if (isset($this->request->post['meta_keywords'])) {
@@ -62,6 +66,7 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
                 'generator_seo_products_suffix' => $this->request->post['products_suffix'],
                 'generator_seo_manufacturers_template' => $this->request->post['manufacturers_template'],
                 'generator_seo_manufacturers_suffix' => $this->request->post['manufacturers_suffix'],
+                'generator_seo_title_template' => $this->request->post['title_template'],
                 'generator_seo_description_template' => $this->request->post['description_template'],
                 'generator_seo_meta_template' => $this->request->post['meta_template'],
                 'generator_seo_tags_template' => $this->request->post['tags_template'],
@@ -107,6 +112,11 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
             $data['manufacturers_suffix'] = $this->request->post['manufacturers_suffix'];
         } else {
             $data['manufacturers_suffix'] = $this->config->get('generator_seo_manufacturers_suffix');
+        }
+        if (isset($this->request->post['title_template'])) {
+            $data['title_template'] = $this->request->post['title_template'];
+        } else {
+            $data['title_template'] = $this->config->get('generator_seo_title_template');
         }
         if (isset($this->request->post['description_template'])) {
             $data['description_template'] = $this->request->post['description_template'];

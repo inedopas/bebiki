@@ -320,6 +320,7 @@ class ControllerExtensionSeoPro extends Controller {
 			$config_url = substr($this->config->get('config_url'), 0, $this->strpos_offset('/', $this->config->get('config_url'), 3) + 1);
 			$url = str_replace('&amp;', '&', $config_url . ltrim($this->request->server['REQUEST_URI'], '/'));
 			$seo = str_replace('&amp;', '&', $this->url->link($this->request->get['route'], $this->getQueryString(array('route')), false));
+			$seo=str_replace('index.php?route=common/home', '', $seo);
 		}
 
 		if (rawurldecode($url) != rawurldecode($seo)) {

@@ -10,6 +10,11 @@ class ControllerSettingSetting extends Controller {
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+				
+				//d_seo_module
+				$this->load->controller('extension/module/d_seo_module/setting_edit_setting');
+				///d_seo_module
+            
 			$this->model_setting_setting->editSetting('config', $this->request->post);
 
 			if ($this->config->get('config_currency_auto')) {
@@ -1086,6 +1091,11 @@ class ControllerSettingSetting extends Controller {
 			$this->error['encryption'] = $this->language->get('error_encryption');
 		}
 
+				
+				//d_seo_module
+				$this->error = $this->load->controller('extension/module/d_seo_module/setting_validate', $this->error);
+				///d_seo_module
+            
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');
 		}

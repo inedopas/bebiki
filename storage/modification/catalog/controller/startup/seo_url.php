@@ -2,11 +2,29 @@
 class ControllerStartupSeoUrl extends Controller {
 	public function index() {
 		// Add rewrite to url class
+				
+				//d_seo_module
+				$route_status = isset($this->request->get['route']);
+				
+				$this->load->controller('extension/module/d_seo_module/seo_url');
+				///d_seo_module
+			
 		if ($this->config->get('config_seo_url')) {
 			$this->url->addRewrite($this);
 		}
 
 		// Decode URL
+				
+				//d_seo_module
+				if (!$route_status && isset($this->request->get['route'])) {
+					if (VERSION >= '2.3.0.0') {
+						return true;
+					} else {
+						return new Action($this->request->get['route']);
+					}
+				}
+				///d_seo_module
+			
 		if (isset($this->request->get['_route_'])) {
 			$parts = explode('/', $this->request->get['_route_']);
 
@@ -83,7 +101,11 @@ class ControllerStartupSeoUrl extends Controller {
 
 		$data = array();
 
-		parse_str($url_info['query'], $data);
+						
+				//d_seo_module
+				if (isset($url_info['query'])) parse_str($url_info['query'], $data);
+				///d_seo_module
+			
 
 		foreach ($data as $key => $value) {
 			if (isset($data['route'])) {

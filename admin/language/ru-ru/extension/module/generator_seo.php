@@ -8,6 +8,7 @@ $_['warning_clear'] = 'Внимание: это удалит все сущест
 $_['warning_clear_description'] = 'Внимание: это удалит все существующие Meta Description!';
 $_['warning_clear_meta'] = 'Внимание: это удалит все существующие Meta Keywords!';
 $_['warning_clear_tags'] = 'Внимание: это удалит все существующие Теги!';
+$_['warning_clear_title'] = 'Внимание: это удалит все существующие Meta Title!';
 $_['main_settings'] = 'Настройки';
 $_['author'] = '<a href="http://nedopas.com" target="_blank" title="nedopas.com">nedopas.com</a>';
 $_['authorer'] = 'Developer';
@@ -24,6 +25,7 @@ $_['available_product_tags'] = 'Шаблоны: [product_name], [model_name], [m
 $_['available_manufacturer_tags'] = 'Шаблоны: [manufacturer_name]';
 $_['available_meta_tags'] = 'Шаблоны: [product_name], [model_name], [manufacturer_name], [categories_names]';
 $_['available_tags_tags'] = 'Шаблоны: [product_name], [model_name], [manufacturer_name], [categories_names]';
+$_['products_meta_title'] = 'Meta Title товаров:';
 $_['products_meta_description'] = 'Meta Description товаров:';
 $_['products_meta_keywords'] = 'Meta Keywords товаров:';
 $_['categories_meta_keywords'] = 'Meta Keywords категорий:';

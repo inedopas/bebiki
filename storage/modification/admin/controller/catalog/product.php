@@ -1239,6 +1239,11 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 
+				
+				//d_seo_module
+				$this->error = $this->load->controller('extension/module/d_seo_module/product_validate_form', $this->error);
+				///d_seo_module
+            
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');
 		}

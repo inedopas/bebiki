@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# product: http://ogp.me/ns/product#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Ошибка 404</title>
+        <meta name="viewport" content="width=device-width">
+        <link href='/assets/cache/horoshop_default_body.css?1526372515' type='text/css' rel='stylesheet'>
+    <script type="text/javascript" src="/globals.js/"></script>
+<script type='text/javascript' src='/assets/cache/horoshop_default_main.js?1520415988'></script>
+        <script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', "UA-62846241-1", 'auto'); ga('require', 'displayfeatures'); ga('send', 'pageview'); ga('require', 'ec');</script>            </head>
+    <body class="error404">
+        <script>
+                        !function(e,t){"use strict";var n="/frontend/themes/horoshop_default/layout/img/svgdefs.svg",o=1520415926;if(!t.createElementNS||!t.createElementNS("http://www.w3.org/2000/svg","svg").createSVGRect)return!0;var a,r,l="localStorage"in e&&null!==e.localStorage,i=function(){t.body.insertAdjacentHTML("afterbegin",r)},s=function(){t.body?i():t.addEventListener("DOMContentLoaded",i)};if(l&&localStorage.getItem("inlineSVGrev")==o&&(r=localStorage.getItem("inlineSVGdata")))return s(),!0;try{a=new XMLHttpRequest,a.open("GET",n,!0),a.onload=function(){a.status>=200&&a.status<400&&(r=a.responseText,s(),l&&(localStorage.setItem("inlineSVGdata",r),localStorage.setItem("inlineSVGrev",o)))},a.send()}catch(c){}}(window,document);
+        </script>
+                        <div class="wrapper">
+            <div class="error404-container">
+                <a href="/"><img alt='Интернет магазин детской обуви, широкий выбор, все в наличии, доступные цены. Самовывоз и примерка для Запорожья.'  class='error404-logo' width='220' height='70' src='/images/43/93675947189331.jpg'  ></a>
+<div class="error404-wrap">
+    <div class="error404-info">
+
+        <h1 class="error404-header"><span class="error404-title">Страница не существует</span><sup class="error404-sup">Ошибка 404</sup></h1>
+        <p class="error404-msg">Неправильно набран адрес, или такой страницы на сайте больше не существует. Перейдите на <a href="/">главную</a> или воспользуйтесь поиском:</p>
+    </div>
+    <div class="error404-nav">
+        <div class="error404-search">
+                            <div class="search">
+    <form method="get" action="/katalog/search/">
+        <button type="submit" class="search-button" disabled>
+            <i class="icon-search"></i>
+        </button>
+        <input class="search-input" id="c23ebd4ada4fe44e6b7016a33b93c034" type="text" name="q" placeholder="поиск по каталогу товаров" autocomplete="off" value="">
+    </form>
+</div>
+<div class="search-results" id="c23ebd4ada4fe44e6b7016a33b93c034-search-results"></div>
+    <script type="text/javascript">
+        init_search_widget('#c23ebd4ada4fe44e6b7016a33b93c034');
+    </script>            
+        </div>
+        <div class="error404-grid">
+            <!--
+--><ul class="error404-menu">
+    <li class="error404-menu-i">
+        <a href="/sportivnaya-obuv/">Спортивная обувь</a>
+        <ul class="error404-submenu">
+                            <li class="error404-submenu-i">
+                    <a href="/krossovki/">Кроссовки</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/kedy/">Кеды</a>
+                </li>
+            
+        </ul>
+    </li>
+</ul><!--
+--><ul class="error404-menu">
+    <li class="error404-menu-i">
+        <a href="/tekstilnaya-obuv/">Текстильная обувь</a>
+        <ul class="error404-submenu">
+                            <li class="error404-submenu-i">
+                    <a href="/tapochki/">Тапочки/ Слипоны</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="https://petrik.com.ua/kedy/">Кеды</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/pinetki-noski/">Пинетки - носки</a>
+                </li>
+            
+        </ul>
+    </li>
+</ul><!--
+--><ul class="error404-menu">
+    <li class="error404-menu-i">
+        <a href="/letnyaya-obuv/1143/">Летняя обувь</a>
+        <ul class="error404-submenu">
+                            <li class="error404-submenu-i">
+                    <a href="/bosonozhki-sandali/">Босоножки / Сандалии</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/plyazhnaya-obuv/">Пляжная обувь</a>
+                </li>
+            
+        </ul>
+    </li>
+</ul><!--
+--><ul class="error404-menu">
+    <li class="error404-menu-i">
+        <a href="/demisezonnaya-obuv/">Демисезонная обувь</a>
+        <ul class="error404-submenu">
+                            <li class="error404-submenu-i">
+                    <a href="/tufli-mokasiny/">Туфли / Мокасины</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/botinki/">Ботинки</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/rezinovye-sapogi/">Резиновые сапоги</a>
+                </li>
+            
+        </ul>
+    </li>
+</ul><!--
+--><ul class="error404-menu">
+    <li class="error404-menu-i">
+        <a href="/zimnyaya-obuv/">Зимняя обувь</a>
+        <ul class="error404-submenu">
+                            <li class="error404-submenu-i">
+                    <a href="/zimnyaya-obuv/">Сапоги/ Ботинки</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/zimnyaya-obuv/">Термоботинки</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/zimnyaya-obuv/">Дутики</a>
+                </li>
+            
+        </ul>
+    </li>
+</ul><!--
+--><ul class="error404-menu">
+    <li class="error404-menu-i">
+        <a href="/sale/">SALE</a>
+        <ul class="error404-submenu">
+                            <li class="error404-submenu-i">
+                    <a href="/vse-po-200-grn/">Все по 200 грн</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/vse-po-150-grn/">Все по 150 грн</a>
+                </li>
+                            <li class="error404-submenu-i">
+                    <a href="/vse-po-100-grn/">Все по 100 грн</a>
+                </li>
+            
+        </ul>
+    </li>
+</ul><!--
+-->        </div>
+    </div>
+</div>            </div>
+        </div>
+        
+        <script type='text/javascript' src='/assets/cache/horoshop_default_foot.js?1520415989'></script>
+                <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('require', 'ec');
+  ga('set', '&cu', GLOBAL.currency.iso);
+
+   // заменяется кодом инициализации события с расположением "Внутри кода инициализации маркетинговой системы"
+  
+  ga('send', 'pageview');
+
+</script><div style="display:none;">
+<script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = "";
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+    <div style="display:inline;">
+        <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion//?value=1&guid=ON&script=0"/>
+    </div>
+</noscript>
+</div><!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id="
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->    </body>
+
+</html>
+    <!-- 0.59s -->
