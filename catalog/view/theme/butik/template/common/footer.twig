@@ -1,0 +1,109 @@
+<footer>
+  <div class="container">
+    <div class="row">
+      {% if informations %}
+        <div class="col-md-3 col-sm-6 col-xs-6">
+          <h5>{{ footer_column1 ? footer_column1 : text_information }}</h5>
+          <ul class="list-unstyled footer-link">
+            {% for information in informations %}
+            <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+            {% endfor %}
+            {% if butik_footer_contact_status %}<li><a href="{{ contact }}">{{ text_contact }}</a></li>{% endif %}
+            {% if butik_footer_sitemap_status %}<li><a href="{{ sitemap }}">{{ text_sitemap }}</a></li>{% endif %}
+            {% if footer1_link_add is not empty %}
+            {% for key, value in footer1_link_add %}
+            <li><a href="{{ value.link }}">{{ value.title }}</a></li>
+            {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+      {% endif %}
+      <div class="col-md-3 col-sm-6 col-xs-6">
+        <h5>{{ footer_column2 ? footer_column2 : text_extra }}</h5>
+        <ul class="list-unstyled footer-link">
+          {% if butik_footer_account_status %}<li><a href="{{ account }}">{{ text_account }}</a></li>{% endif %}
+          {% if butik_footer_order_status %}<li><a href="{{ order }}">{{ text_order }}</a></li>{% endif %}
+          {% if butik_footer_wishlist_status %}<li><a href="{{ wishlist }}">{{ text_wishlist }}</a></li>{% endif %}
+          {% if butik_footer_newsletter_status %}<li><a href="{{ newsletter }}">{{ text_newsletter }}</a></li>{% endif %}
+          {% if butik_footer_return_status %}<li><a href="{{ return }}">{{ text_return }}</a></li>{% endif %}
+          {% if butik_footer_manufacturer_status %}<li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>{% endif %}
+          {% if butik_footer_voucher_status %}<li><a href="{{ voucher }}">{{ text_voucher }}</a></li>{% endif %}
+          {% if butik_footer_affiliate_status %}<li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>{% endif %}
+          {% if butik_footer_special_status %}<li><a href="{{ special }}">{{ text_special }}</a></li>{% endif %}
+          {% if footer2_link_add is not empty %}
+          {% for key, value in footer2_link_add %}
+          <li><a href="{{ value.link }}">{{ value.title }}</a></li>
+          {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-6">
+        <h5>{{ footer_column3 ? footer_column3 : text_footer_title }}</h5>
+        <ul class="list-unstyled footer-cont">
+          {% if butik_footer_phone1 != '' %}
+          <li><i class="fa fa-phone"></i> <a href="tel:{{ w_footer_phone1 }}">{{ butik_footer_phone1 }}</a></li>
+          {% endif %}
+          {% if butik_footer_phone2 != '' %}
+          <li><i class="fa fa-phone"></i> <a href="tel:{{ w_footer_phone2 }}">{{ butik_footer_phone2 }}</a></li>
+          {% endif %}
+          {% if butik_footer_phone3 != '' %}
+          <li><i class="fa fa-phone"></i> <a href="tel:{{ w_footer_phone3 }}">{{ butik_footer_phone3 }}</a></li>
+          {% endif %}
+          {% if butik_footer_phone4 != '' %}
+          <li><i class="fa fa-phone"></i> <a href="tel:{{ w_footer_phone4 }}">{{ butik_footer_phone4 }}</a></li>
+          {% endif %}
+          {% if butik_footer_email != '' %}
+          <li><i class="fa fa-envelope"></i> <a href="mailto:{{ butik_footer_email }}">{{ butik_footer_email }}</a></li>
+          {% endif %}
+          {% if butik_footer_skype != '' %}
+          <li><i class="fa fa-skype"></i> <a href="skype:{{ butik_footer_skype }}">{{ butik_footer_skype }}</a></li>
+          {% endif %}
+          {% if footer_schedule != '' %}
+          <li><i class="fa fa-clock-o"></i> {{ footer_schedule }}</li>
+          {% endif %}
+          {% if footer_location != '' %}
+          <li><i class="fa fa-map-marker"></i> {{ footer_location }}</li>
+          {% endif %}
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-6">
+        {% if butik_footer_logo %}
+        <div id="logo-footer">
+          <img src="{{ butik_footer_logo }}" title="" alt="" class="img-responsive" />
+        </div>
+        {% endif %}
+        {% if footer_about_us != '' %}
+        <div class="footer-about">{{ footer_about_us }}</div>
+        {% endif %}
+        {% if soc_footer is not empty %}
+        <div class="soc">
+          {% for key, value in soc_footer %}
+          <a href="{{ value.link }}" rel="nofollow noopener" target="_blank"> <img src="{{ value.image }}" alt="" title=""></a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <hr>
+    <div class="col-md-6 col-sm-6 col-xs-12">{{ powered }}</div>
+    <div class="payments-metods col-md-6 col-sm-6 col-xs-12 text-right">
+      {% if payments_metods is not empty %}
+      {% for key, value in payments_metods %}
+      <a href="{{ value.link }}" rel="nofollow noopener" target="_blank"> <img src="{{ value.image }}" alt="" title=""></a>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  {% if butik_callback_status %}
+  <div id="callphone"><a href="javascript:void(0)" data-toggle="modal" class="btn-callback"><i class="fa fa-phone"></i></a></div>
+  {% endif %}
+  {% if butik_backtotop_status %}
+  <div id="back-top"><a href="javascript:void(0)" class="backtotop"><i class="fa fa-chevron-up"></i></a></div>
+  {% endif %}
+</footer>
+{% for script in scripts %}
+<script src="{{ script }}" type="text/javascript"></script>
+{% endfor %}
+<script src="catalog/view/theme/butik/js/common.js" type="text/javascript"></script>
+<script src="catalog/view/theme/butik/js/custom.js" type="text/javascript"></script>
+</body></html>

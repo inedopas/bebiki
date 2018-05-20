@@ -1,0 +1,80 @@
+<div class="row form-group">
+  <div class="col-md-3">Browser Cache Status<span class="help">Enable/Disable client-side browser caching.</span></div>
+  <div class="col-md-3">
+    <select name="Nitro[BrowserCache][Enabled]" class="NitroBrowserCacheEnabled form-control">
+      <option value="yes" {{ nitroData.Nitro.BrowserCache.Enabled == 'yes' ? 'selected' }}>Enabled (Recommended)</option>
+      <option value="no" {{ nitroData.Nitro.BrowserCache.Enabled != 'yes' ? 'selected' }}>Disabled</option>
+    </select>
+  </div>
+</div>
+<div class="row form-group"><div class="col-md-3"><h4>OpenCart Pages</h4></div></div>
+<div class="row form-group">
+  <div class="col-md-3">Activated Headers</div>
+  <div class="col-md-3">
+    <table class="bcHeaders">
+      <tr>
+        <td class="checkboxHeader"><input class="form-control" type="checkbox" id="chkPagesCacheControl" name="Nitro[BrowserCache][Headers][Pages][CacheControl]" {{ nitroData.Nitro.BrowserCache.Headers.Pages.CacheControl ? 'checked' }} /></td>            
+        <td class="textHeader">
+          <label for="chkPagesCacheControl">Set <strong>Cache-Control</strong> Header</label>
+          <a href="javascript:void(0)" class="infoPopover" data-toggle="popover" data-html="true" data-title="Cache-Control: max-age" data-content="This sets <i>Cache-Control: max-age</i> to a high value, which specifies the maximum amount of time that a representation will be considered fresh." data-placement="right"><i class="icon-info-sign"></i></a>
+        </td>            
+      </tr>
+      <tr>
+        <td class="checkboxHeader"><input class="form-control" type="checkbox" id="chkPagesExpires" name="Nitro[BrowserCache][Headers][Pages][Expires]" {{ nitroData.Nitro.BrowserCache.Headers.Pages.Expires ? 'checked' }} /></td>            
+        <td class="textHeader">
+          <label for="chkPagesExpires">Set <strong>Expires</strong> Header</label>
+          <a href="javascript:void(0)" class="infoPopover" data-toggle="popover" data-html="true" data-title="Expires" data-content="This sets an <i>Expires:</i> header in a future date which will be the expiration date or time for files sent by your server. The expiration information is used by also by proxy servers." data-placement="right"><i class="icon-info-sign"></i></a>
+        </td>            
+      </tr>
+      <tr>
+        <td class="checkboxHeader"><input class="form-control" type="checkbox" id="chkPagesLastModified" name="Nitro[BrowserCache][Headers][Pages][LastModified]" {{ nitroData.Nitro.BrowserCache.Headers.Pages.LastModified ? 'checked' }} /></td>            
+        <td class="textHeader">
+          <label for="chkPagesLastModified">Set <strong>Last-Modified</strong> Header</label>
+          <a href="javascript:void(0)" class="infoPopover" data-toggle="popover" data-html="true" data-title="Last-Modified" data-content="This sets a <i>Last-Modified:</i> header which specifies some characteristic about the resource that the browser checks to determine if the files are the same. The value of this header is always a date. Also, <i>Last-Modified:</i> is a 'weak' caching header in that the browser applies a heuristic to determine whether to fetch the item from cache or not. (The heuristics are different among different browsers)" data-placement="right"><i class="icon-info-sign"></i></a>
+        </td>            
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="row form-group"><div class="col-md-3"><h4>CSS, JavaScript, XML and text</h4></div></div>
+<div class="row form-group">
+  <div class="col-md-3">Cache <i>css, js, txt, xml</i> files for a period of: </div>
+  <div class="col-md-3">
+    <select name="Nitro[BrowserCache][CSSJS][Period]" class="form-control NitroBrowserCacheEnabled">
+      <option value="no-cache" {{ nitroData.Nitro.BrowserCache.CSSJS.Period == 'no-cache' ? 'selected' }}>0 - Do not cache it</option>
+      <option value="1 week" {{ nitroData.Nitro.BrowserCache.CSSJS.Period == '1 week' ? 'selected' }}>1 week</option>
+      <option value="1 month" {{ not nitroData.Nitro.BrowserCache.CSSJS.Period or nitroData.Nitro.BrowserCache.CSSJS.Period == '1 month' ? 'selected' }}>1 month</option>
+      <option value="6 months" {{ nitroData.Nitro.BrowserCache.CSSJS.Period == '6 months' ? 'selected' }}>6 months</option>
+      <option value="1 year" {{ nitroData.Nitro.BrowserCache.CSSJS.Period == '1 year' ? 'selected' }}>1 year</option>
+    </select>
+  </div>
+</div>
+<div class="row form-group"><div class="col-md-3"><h4>Images</h4></div></div>
+<div class="row form-group">
+  <div class="col-md-3">Cache <i>jpg, jpeg, png, gif, swf</i> files for a period of: </div>
+  <div class="col-md-3">
+    <select name="Nitro[BrowserCache][Images][Period]" class="form-control NitroBrowserCacheEnabled">
+      <option value="no-cache" {{ nitroData.Nitro.BrowserCache.Images.Period == 'no-cache' ? 'selected' }}>0 - Do not cache it</option>
+      <option value="1 week" {{ nitroData.Nitro.BrowserCache.Images.Period == '1 week' ? 'selected' }}>1 week</option>
+      <option value="1 month" {{ not nitroData.Nitro.BrowserCache.Images.Period or nitroData.Nitro.BrowserCache.Images.Period == '1 month' ? 'selected' }}>1 month</option>
+      <option value="6 months" {{ nitroData.Nitro.BrowserCache.Images.Period == '6 months' ? 'selected' }}>6 months</option>
+      <option value="1 year" {{ nitroData.Nitro.BrowserCache.Images.Period == '1 year' ? 'selected' }}>1 year</option>
+    </select>
+  </div>
+</div>
+<div class="row form-group"><div class="col-md-3"><h4>Icons, Fonts, PDF and Flash video</h4></div></div>
+<div class="row form-group">
+  <div class="col-md-3">Cache <i>otf,ico,pdf,flv</i> files for a period of: </div>
+  <div class="col-md-3">
+    <select name="Nitro[BrowserCache][Icons][Period]" class="form-control NitroBrowserCacheEnabled">
+      <option value="no-cache" {{ nitroData.Nitro.BrowserCache.Icons.Period == 'no-cache' ? 'selected' }}>0 - Do not cache it</option>
+      <option value="1 week" {{ nitroData.Nitro.BrowserCache.Icons.Period == '1 week' ? 'selected' }}>1 week</option>
+      <option value="1 month" {{ not nitroData.Nitro.BrowserCache.Icons.Period or nitroData.Nitro.BrowserCache.Icons.Period == '1 month' ? 'selected' }}>1 month</option>
+      <option value="6 months" {{ nitroData.Nitro.BrowserCache.Icons.Period == '6 months' ? 'selected' }}>6 months</option>
+      <option value="1 year" {{ nitroData.Nitro.BrowserCache.Icons.Period == '1 year' ? 'selected' }}>1 year</option>
+    </select>
+  </div>
+</div>
+<script type="text/javascript">
+$('.infoPopover').popover();
+</script>

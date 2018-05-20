@@ -1,0 +1,14 @@
+# STARTCOMPRESSNITRO
+RewriteEngine On
+RewriteRule .* - [E=HTTP_IF_MODIFIED_SINCE:%{HTTP:If-Modified-Since}]
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(\/?(catalog).+)\.css$ catalog/view/theme/assets//style.php?l=4&p=$1&c=604800 [NC,L]
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(\/?(catalog).+)\.js$ catalog/view/theme/assets//script.php?l=4&p=$1&c=604800 [NC,L]
+AddType image/svg+xml .svg
+AddOutputFilterByType DEFLATE image/svg+xml
+AddType application/x-font-woff .woff
+AddOutputFilterByType DEFLATE application/x-font-woff
+# ENDCOMPRESSNITRO

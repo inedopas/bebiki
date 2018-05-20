@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="{{ direction }}" lang="{{ lang }}">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{{ title }}</title>
+<base href="{{ base }}" />
+{% if description %}
+<meta name="description" content="{{ description }}" />
+{% endif %}
+{% if keywords %}
+<meta name="keywords" content="{{ keywords }}" />
+{% endif %}
+<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+<link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<link href="catalog/view/theme/butik/js/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
+<link href="catalog/view/theme/butik/stylesheet/stylesheet.css" rel="stylesheet">
+{% for style in styles %}
+<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+{% endfor %}
+{% for script in scripts %}
+<script src="{{ script }}" type="text/javascript"></script>
+{% endfor %}
+{% for link in links %}
+<link href="{{ link.href }}" rel="{{ link.rel }}" />
+{% endfor %}
+{% for analytic in analytics %}
+{{ analytic }}
+{% endfor %}
+{% if butik_menu_align %}
+  <style type="text/css">
+    #menu {text-align: center;}
+    @media (min-width: 768px) { #menu .navbar-nav {float: none;margin: auto;display: inline-block;margin-bottom: -6px;text-align: left;}}
+  </style>
+{% endif %}
+</head>
+<body>
+<nav id="top">
+  <div class="container">
+    {% if butik_topmenu_status %}
+    {% if top_link_add %}
+    <span class="menu-icon visible-sm visible-xs"><i class="fa fa-bars"></i></span>
+    <div class="pull-left left-top">
+      <div class="costom-links">
+        <ul>
+          {% for value in top_link_add %}
+          <li><a href="{{ value.link }}">{{ value.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+    {% endif %}
+    {{ currency }}
+    {{ language }}
+    <button type="button" class="btn btn-link pull-right" onclick="signin();"><i class="glyphicon glyphicon-user" aria-hidden="true"></i> {{ text_signin }}</button>
+    {% if butik_wishlist_status %}
+    <div class="pull-right">
+      <div class="btn-group">
+        <a href="{{ wishlist }}" class="btn btn-link" id="wishlist-total" title="{{ text_wishlist }}"><i class="fa fa-heart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_wishlist }}</span></a>
+      </div>
+    </div>
+    {% endif %}
+    {% if butik_compare_status %}
+    <div class="pull-right">
+      <div class="btn-group">
+        <a href="{{ compare }}" class="btn btn-link" id="compare-total" >{{ butik_compare }}</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</nav>
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-12 col-xs-12">
+        <div id="logo">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a>{% else %}
+          <h1><a href="{{ home }}">{{ name }}</a></h1>
+          {% endif %}</div>
+      </div>
+      {% if header_phones is not empty and contact_schedule is not empty %}
+      {% set class_cont = 'col-md-3 col-sm-6 col-xs-6 header-cont' %}
+      {% elseif header_phones is not empty or contact_schedule is not empty %}
+      {% set class_cont = 'col-md-3 col-sm-12 col-xs-12 header-cont' %}
+      {% endif %}
+      {% if header_phones %}
+      <div class="{{ class_cont }}">
+        <div class="contacts_header">
+          <div class="contacts_icon">
+            <i class="fa fa-phone"></i>
+          </div>
+          <div class="phones">
+            {% for key, value in header_phones %}
+            <div><a href="tel:{{ value.link }}">{{ value.phone }}</a></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if contact_schedule %}
+      <div class="{{ class_cont }}">
+        <div class="header_schedule">
+          <div class="schedule_icon">
+            <i class="fa fa-clock-o"></i>
+          </div>
+          <div class="schedule">
+            <div>{{ contact_schedule }}</div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if header_phones is empty and contact_schedule is empty %}
+      {% set class_search = 'col-md-9 col-sm-12 col-xs-12' %}
+      {% elseif header_phones is empty or contact_schedule is empty %}
+      {% set class_search = 'col-md-6 col-sm-12 col-xs-12' %}
+      {% else %}
+      {% set class_search = 'col-md-3 col-sm-12 col-xs-12' %}
+      {% endif %}
+      <div class="{{ class_search }} box-search">
+        <div class="row">
+          <div class="col-md-8 col-sm-9 col-xs-9">{{ search }}</div>
+          <div class="col-md-4 col-sm-3 col-xs-3">{{ cart }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{ menu }}

@@ -1,0 +1,1641 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <a class="btn btn-success" onclick="$('#save').val('stay');$('#form-theme-butik').submit();" data-toggle="tooltip" title="Применить"><i class="fa fa-check"></i></a>
+        <button type="submit" form="form-theme-butik" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {%  if success %}
+    <div class="alert alert-success"><i class="fa fa-check"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+        <div class="panel-body">
+          <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-theme-butik" class="form-horizontal">
+            <input type="hidden" name="save" id="save" value="0">
+            <div class="row">
+              <div class="col-lg-2">
+                <ul class="nav nav-pills nav-stacked">
+                  <li class="active"><a href="#tab-general" data-toggle="pill">{{ text_general }}</a></li>
+                  <li><a href="#tab-option" data-toggle="pill">{{ text_option }}</a></li>
+                  <li><a href="#tab-header" data-toggle="pill">{{ text_header }}</a></li>
+                  <li><a href="#tab-menu" data-toggle="pill">{{ text_menu }}</a></li>
+                  <li><a href="#tab-product-info" data-toggle="pill">{{ text_product_info }}</a></li>
+                  <li><a href="#tab-footer" data-toggle="pill">{{ text_footer }}</a></li>
+                  <li><a href="#tab-soc-footer" data-toggle="pill">{{ text_socials }}</a></li>
+                  <li><a href="#tab-payments" data-toggle="pill">{{ text_payments }}</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-10" style="border-left: 1px solid #eee;">
+                <div class="tab-content">
+                  <!-- /// GENERAL /// -->
+                  <div class="tab-pane active" id="tab-general">
+                    <fieldset>
+                      <legend>{{ text_general }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-directory"><span data-toggle="tooltip" title="{{ help_directory }}">{{ entry_directory }}</span></label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_directory" id="input-directory" class="form-control">
+                            {%  for directory in directories %}
+                            {%  if directory == theme_butik_directory %}
+                            <option value="{{ directory }}" selected="selected">{{ directory }}</option>
+                            {% else %}
+                            <option value="{{ directory }}">{{ directory }}</option>
+                            {% endif %}
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_status" id="input-status" class="form-control">
+                            {% if theme_butik_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ text_product }}</legend>
+                      <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-catalog-limit"><span data-toggle="tooltip" title="{{ help_product_limit }}">{{ entry_product_limit }}</span></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="theme_butik_product_limit" value="{{ theme_butik_product_limit }}" placeholder="{{ entry_product_limit }}" id="input-catalog-limit" class="form-control" />
+                          {%  if error_product_limit %}
+                          <div class="text-danger">{{ error_product_limit }}</div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-description-limit"><span data-toggle="tooltip" title="{{ help_product_description_length }}">{{ entry_product_description_length }}</span></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="theme_butik_product_description_length" value="{{ theme_butik_product_description_length }}" placeholder="{{ entry_product_description_length }}" id="input-description-limit" class="form-control" />
+                          {%  if error_product_description_length %}
+                          <div class="text-danger">{{ error_product_description_length }}</div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ text_image }}</legend>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-category-width">{{ entry_image_category }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_category_width" value="{{ theme_butik_image_category_width }}" placeholder="{{ entry_width }}" id="input-image-category-width" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_category_height" value="{{ theme_butik_image_category_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                            {% if error_image_category %}
+                            <div class="text-danger">{{ error_image_category }}</div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-thumb-width">{{ entry_image_thumb }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_thumb_width" value="{{ theme_butik_image_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_thumb_height" value="{{ theme_butik_image_thumb_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                            {% if error_image_thumb %}
+                            <div class="text-danger">{{ error_image_thumb }}</div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-popup-width">{{ entry_image_popup }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_popup_width" value="{{ theme_butik_image_popup_width }}" placeholder="{{ entry_width }}" id="input-image-popup-width" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_popup_height" value="{{ theme_butik_image_popup_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                            {% if error_image_popup %}
+                            <div class="text-danger">{{ error_image_popup }}</div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-product-width">{{ entry_image_product }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_product_width" value="{{ theme_butik_image_product_width }}" placeholder="{{ entry_width }}" id="input-image-product-width" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_product_height" value="{{ theme_butik_image_product_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                            {% if error_image_product %}
+                            <div class="text-danger">{{ error_image_product }}</div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-additional-width">{{ entry_image_additional }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_additional_width" value="{{ theme_butik_image_additional_width }}" placeholder="{{ entry_width }}" id="input-image-additional-width" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_additional_height" value="{{ theme_butik_image_additional_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                              {% if error_image_additional %}
+                            <div class="text-danger">{{ error_image_additional }}</div>
+                              {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-related">{{ entry_image_related }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_related_width" value="{{ theme_butik_image_related_width }}" placeholder="{{ entry_width }}" id="input-image-related" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_related_height" value="{{ theme_butik_image_related_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                              {% if error_image_related %}
+                            <div class="text-danger">{{ error_image_related }}</div>
+                              {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-compare">{{ entry_image_compare }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_compare_width" value="{{ theme_butik_image_compare_width }}" placeholder="{{ entry_width }}" id="input-image-compare" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_compare_height" value="{{ theme_butik_image_compare_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                              {% if error_image_compare %}
+                            <div class="text-danger">{{ error_image_compare }}</div>
+                              {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-wishlist">{{ entry_image_wishlist }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_wishlist_width" value="{{ theme_butik_image_wishlist_width }}" placeholder="{{ entry_width }}" id="input-image-wishlist" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_wishlist_height" value="{{ theme_butik_image_wishlist_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                              {% if error_image_wishlist %}
+                            <div class="text-danger">{{ error_image_wishlist }}</div>
+                              {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-cart">{{ entry_image_cart }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_cart_width" value="{{ theme_butik_image_cart_width }}" placeholder="{{ entry_width }}" id="input-image-cart" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_cart_height" value="{{ theme_butik_image_cart_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                              {% if error_image_cart %}
+                            <div class="text-danger">{{ error_image_cart }}</div>
+                              {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group required">
+                          <label class="col-sm-2 control-label" for="input-image-location">{{ entry_image_location }}</label>
+                          <div class="col-sm-10">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_location_width" value="{{ theme_butik_image_location_width }}" placeholder="{{ entry_width }}" id="input-image-location" class="form-control" />
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" name="theme_butik_image_location_height" value="{{ theme_butik_image_location_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                              </div>
+                            </div>
+                              {% if error_image_location %}
+                            <div class="text-danger">{{ error_image_location }}</div>
+                              {% endif %}
+                          </div>
+                        </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- /// OPTION /// -->
+                  <div class="tab-pane" id="tab-option">
+                    <fieldset>
+                      <legend>{{ text_option }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-compare-status">{{ entry_quickview_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_quickview_status" id="input-compare-status" class="form-control">
+                            {% if theme_butik_quickview_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-compare-status">{{ entry_compare_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_compare_status" id="input-compare-status" class="form-control">
+                            {% if theme_butik_compare_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-wishlist-status">{{ entry_wishlist_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_wishlist_status" id="input-wishlist-status" class="form-control">
+                            {% if theme_butik_wishlist_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-short-description-status">{{ entry_short_description_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_short_description_status" id="input-short-description-status" class="form-control">
+                            {% if theme_butik_short_description_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-backtotop-status">{{ entry_backtotop_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_backtotop_status" id="input-backtotop-status" class="form-control">
+                            {% if theme_butik_backtotop_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-percentage-status">{{ entry_percentage_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_percentage_status" id="input-percentage-status" class="form-control">
+                            {% if theme_butik_percentage_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-hover-img-status">{{ entry_hover_img_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_hover_img_status" id="input-hover-img-status" class="form-control">
+                            {% if theme_butik_hover_img_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-ctegory-description-status">{{ entry_ctegory_description }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_ctegory_description_status" id="input-ctegory-description-status" class="form-control">
+                            {% if theme_butik_ctegory_description_status %}
+                              <option value="1" selected="selected">{{ text_top }}</option>
+                              <option value="0">{{ text_bottom }}</option>
+                            {% else %}
+                              <option value="1">{{ text_top }}</option>
+                              <option value="0" selected="selected">{{ text_bottom }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-no-product-status">{{ entry_no_product }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_no_product" id="input-no-product-status" class="form-control">
+                            {% if theme_butik_no_product %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-agree"><span data-toggle="tooltip" title="{{ help_agree }}">{{ entry_agree }}</span></label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_agree" id="input-agree" class="form-control">
+                            <option value="0">{{ text_none }}</option>
+                            {% for information in informations %}
+                            {% if information.information_id == theme_butik_agree %}
+                            <option value="{{ information.information_id }}" selected="selected">{{ information.title }}</option>
+                            {% else %}
+                            <option value="{{ information.information_id }}">{{ information.title }}</option>
+                            {% endif %}
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <fieldset>
+                      <legend>{{ entry_module_scroll }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-module-scroll-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_module_scroll" id="input-module-scroll-status" class="form-control">
+                            {% if theme_butik_module_scroll %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <fieldset>
+                      <legend>{{ entry_category_list_thumb }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-category-list-thumb-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_category_list_thumb" id="input-category-list-thumb-status" class="form-control">
+                            {% if theme_butik_category_list_thumb %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-image-thumb-width">{{ entry_category_size_thumb }}</label>
+                        <div class="col-sm-10">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <input type="text" name="theme_butik_category_list_thumb_width" value="{{ theme_butik_category_list_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="text" name="theme_butik_category_list_thumb_height" value="{{ theme_butik_category_list_thumb_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- /// HEADER /// -->
+                  <div class="tab-pane" id="tab-header">
+                    <fieldset>
+                      <legend>{{ entry_topmenu }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-topmenu-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_topmenu_status" id="input-topmenu-status" class="form-control">
+                            {% if theme_butik_topmenu_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_topmenu_link }}</label>
+                        <div class="col-sm-10">
+                          <table id="top-menu-horizontal" class="table table-striped table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <td class="text-left"><i class="fa fa-edit"></i> {{ text_text }}</td>
+                                <td class="text-left"><i class="fa fa-link"></i> {{ text_add_link }}</td>
+                                <td class="text-right"><i class="fa fa-sort"></i> {{ text_sort }}</td>
+                                <td></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% set top_links_row = 0 %}
+                              {% for theme_butik_top_link in theme_butik_top_links %}
+                              <tr id="top-links-row{{ top_links_row }}">
+                                <td class="text-left">{% for language in languages %}
+                                  <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> </span>
+                                    <input type="text" name="theme_butik_top_link[{{ top_links_row }}][title][{{ language.language_id }}]" value="{{ theme_butik_top_link.title[language.language_id] }}" class="form-control" />
+                                  </div>
+                                {% endfor %}</td>
+                                <td class="text-left" style="width:40%;">{% for language in languages %}
+                                  <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> </span>
+                                    <input type="text" name="theme_butik_top_link[{{ top_links_row }}][link][{{ language.language_id }}]" value="{{ theme_butik_top_link.link[language.language_id] }}" class="form-control" />
+                                  </div>
+                                {% endfor %}</td>
+                                <td class="text-left" style="width:15%;"><input type="text" name="theme_butik_top_link[{{ top_links_row }}][sort]" value="{{ theme_butik_top_link.sort }}" class="form-control" /></td>
+                                <td class="text-right"><a class="btn btn-danger" onclick="$('#top-links-row{{ top_links_row }}').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>
+                              </tr>
+                              {% set top_links_row = top_links_row + 1 %}
+                              {% endfor %}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="3"></td>
+                                <td class="text-right"><a class="btn btn-primary" onclick="addTopLinks();" data-toggle="tooltip" title="Добавить"><i class="fa fa-plus-circle"></i></a></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_phone_header }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_phones }}</label>
+                        <div class="col-sm-10">
+                          <table id="header-phones-items" class="table table-striped table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <td class="text-left"><i class="fa fa-phone"></i> {{ text_phone }}</td>
+                                <td class="text-right"><i class="fa fa-sort"></i> {{ text_sort }}</td>
+                                <td></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% set phone_header_item_row = 0 %}
+                              {% for theme_butik_header_phone in theme_butik_header_phones %}
+                              <tr id="phone-header-item-row{{ phone_header_item_row }}">
+                                <td class="text-left"><input type="text" name="theme_butik_header_phone[{{ phone_header_item_row }}][phone]" value="{{ theme_butik_header_phone.phone }}" class="form-control" /></td>
+                                <td class="text-left"><input type="text" name="theme_butik_header_phone[{{ phone_header_item_row }}][sort]" value="{{ theme_butik_header_phone.sort }}" class="form-control" /></td>
+                                <td class="text-right"><a class="btn btn-danger" onclick="$('#phone-header-item-row{{ phone_header_item_row }}').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>
+                              </tr>
+                              {% set phone_header_item_row = phone_header_item_row + 1 %}
+                              {% endfor %}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="2"></td>
+                                <td class="text-right"><a class="btn btn-primary" onclick="addPhoneHeaderItem();" data-toggle="tooltip" title="Добавить"><i class="fa fa-plus-circle"></i></a></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-header-schedule">{{ entry_schedule }}</label>
+                        <div class="col-sm-10">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <textarea name="theme_butik_header_schedule[{{ language.language_id }}]" rows="2" class="form-control" id="input-header-schedule">{{ theme_butik_header_schedule[language.language_id] }}</textarea>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- /// MENU /// -->
+                  <div class="tab-pane" id="tab-menu">
+                    <fieldset>
+                      <legend>{{ entry_mine_menu }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-fixed-menu">{{ entry_fixed_menu }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_fixed_menu" id="input-fixed-menu" class="form-control">
+                            {% if theme_butik_fixed_menu %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-home-link-status">{{ entry_home_link }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_home_link" id="input-home-link-status" class="form-control">
+                            {% if theme_butik_home_link %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-menu-align-status">{{ entry_menu_align }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_menu_align" id="input-menu-align-status" class="form-control">
+                            {% if theme_butik_menu_align %}
+                              <option value="1" selected="selected">{{ text_center }}</option>
+                              <option value="0">{{ text_left }}</option>
+                            {% else %}
+                              <option value="1">{{ text_center }}</option>
+                              <option value="0" selected="selected">{{ text_left }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_category_thumb }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-category-thumb-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_category_thumb" id="input-category-thumb-status" class="form-control">
+                            {% if theme_butik_category_thumb %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-image-thumb-width">{{ entry_category_size_thumb }}</label>
+                        <div class="col-sm-10">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <input type="text" name="theme_butik_category_thumb_width" value="{{ theme_butik_category_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="text" name="theme_butik_category_thumb_height" value="{{ theme_butik_category_thumb_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_category_link }}</legend>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <table id="mine-menu-horizontal" class="table table-striped table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <td class="text-left"><i class="fa fa-edit"></i> {{ text_text }}</td>
+                                <td class="text-left"><i class="fa fa-link"></i> {{ text_add_link }}</td>
+                                <td class="text-right"><i class="fa fa-sort"></i> {{ text_sort }}</td>
+                                <td></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% set menu_links_row = 0 %}
+                              {% for theme_butik_menu_link in theme_butik_menu_links %}
+                                <tr id="menu-links-row{{ menu_links_row }}">
+                                  <td class="text-left">{% for language in languages %}
+                                    <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> </span>
+                                      <input type="text" name="theme_butik_menu_link[{{ menu_links_row }}][title][{{ language.language_id }}]" value="{{ theme_butik_menu_link.title[language.language_id] }}" class="form-control" />
+                                    </div>
+                                  {% endfor %}</td>
+                                  <td class="text-left" style="width:40%;">{% for language in languages %}
+                                    <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> </span>
+                                      <input type="text" name="theme_butik_menu_link[{{ menu_links_row }}][link][{{ language.language_id }}]" value="{{ theme_butik_menu_link.link[language.language_id] }}" class="form-control" />
+                                     </div>
+                                  {% endfor %}</td>
+                                  <td class="text-left" style="width:15%;"><input type="text" name="theme_butik_menu_link[{{ menu_links_row }}][sort]" value="{{ theme_butik_menu_link.sort }}" class="form-control" /></td>
+                                  <td class="text-right"><a class="btn btn-danger" onclick="$('#menu-links-row{{ menu_links_row }}').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
+                              {% set menu_links_row = menu_links_row + 1 %}
+                              {% endfor %}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="3"></td>
+                                <td class="text-right"><a class="btn btn-primary" onclick="addMenuLinks();" data-toggle="tooltip" title="Добавить"><i class="fa fa-plus-circle"></i></a></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                        <label class="col-sm-2 control-label" for="input-category-link-left-status">{{ entry_category_link_left }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_category_link_left" id="input-category-link-left-status" class="form-control">
+                            {% if theme_butik_category_link_left %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_brands }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-brands-status-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_brands_status" id="input-brands-status-status" class="form-control">
+                            {% if theme_butik_brands_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-title-brands">{{ entry_title_brands }}</label>
+                        <div class="col-sm-10">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <input type="text" class="form-control" value="{{ theme_butik_title_brands[language.language_id] }}" name="theme_butik_title_brands[{{ language.language_id }}]" id="input-title-brands"/>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_html_tabs }}</legend>
+                      <div class="tab-content">
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a href="#tab1" data-toggle="tab">{{ entry_html_tab1 }}</a></li>
+                          <li><a href="#tab2" data-toggle="tab">{{ entry_html_tab2 }}</a></li>
+                          <li><a href="#tab3" data-toggle="tab">{{ entry_html_tab3 }}</a></li>
+                        </ul>
+                        <!-- HTML TAB 1-->
+                        <div class="tab-pane active" id="tab1">
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-html-block-status1">{{ entry_status }}</label>
+                            <div class="col-sm-10">
+                              <select name="theme_butik_html_block_status1" id="input-html-block-status1" class="form-control">
+                                {% if theme_butik_html_block_status1 %}
+                                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                                  <option value="0">{{ text_disabled }}</option>
+                                {% else %}
+                                  <option value="1">{{ text_enabled }}</option>
+                                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                                {% endif %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="tab-content">
+                            <ul id="language" class="nav nav-tabs">
+                              {% for language in languages %}
+                                <li><a data-toggle="tab" href="#tab1-language-{{ language.language_id }}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+                              {% endfor %}
+                            </ul>
+                            <div class="tab-content">
+                              {% for language in languages %}
+                              <div class="tab-pane" id="tab1-language-{{ language.language_id }}">
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label" for="input-tab1-title">{{ entry_tab_title }}</label>
+                                  <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="theme_butik_tab1_title[{{ language.language_id }}]" value="{{ theme_butik_tab1_title[language.language_id] }}" id="input-tab1-title" />
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label" for="input-tab1-content{{ language.language_id }}">{{ entry_tab_content }}</label>
+                                  <div class="col-sm-10">
+                                    <textarea id="input-tab1-content{{ language.language_id }}" name="theme_butik_tab1_content[{{ language.language_id }}]" cols="50" rows="8" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ theme_butik_tab1_content[language.language_id] }}</textarea>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                        <!-- HTML TAB 2-->
+                        <div class="tab-pane" id="tab2">
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-html-block-status2">{{ entry_status }}</label>
+                            <div class="col-sm-10">
+                              <select name="theme_butik_html_block_status2" id="input-html-block-status2" class="form-control">
+                                {% if theme_butik_html_block_status2 %}
+                                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                                  <option value="0">{{ text_disabled }}</option>
+                                {% else %}
+                                  <option value="1">{{ text_enabled }}</option>
+                                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                                {% endif %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="tab-content">
+                            <ul id="language2" class="nav nav-tabs">
+                              {% for language in languages %}
+                                <li><a data-toggle="tab" href="#tab2-language-{{ language.language_id }}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+                              {% endfor %}
+                            </ul>
+                            <div class="tab-content">
+                              {% for language in languages %}
+                              <div class="tab-pane" id="tab2-language-{{ language.language_id }}">
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label" for="input-tab2-title">{{ entry_tab_title }}</label>
+                                  <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="theme_butik_tab2_title[{{ language.language_id }}]" value="{{ theme_butik_tab2_title[language.language_id] }}" id="input-tab2-title"/>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label" for="input-tab2-content{{ language.language_id }}">{{ entry_tab_content }}</label>
+                                  <div class="col-sm-10">
+                                    <textarea id="input-tab2-content{{ language.language_id }}" name="theme_butik_tab2_content[{{ language.language_id }}]" cols="50" rows="8" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ theme_butik_tab2_content[language.language_id] }}</textarea>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                        <!-- HTML TAB 3-->
+                        <div class="tab-pane" id="tab3">
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label" for="input-html-block-status3">{{ entry_status }}</label>
+                            <div class="col-sm-10">
+                              <select name="theme_butik_html_block_status3" id="input-html-block-status3" class="form-control">
+                                {% if theme_butik_html_block_status3 %}
+                                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                                  <option value="0">{{ text_disabled }}</option>
+                                {% else %}
+                                  <option value="1">{{ text_enabled }}</option>
+                                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                                {% endif %}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="tab-content">
+                            <ul id="language3" class="nav nav-tabs">
+                              {% for language in languages %}
+                              <li><a data-toggle="tab" href="#tab3-language-{{ language.language_id }}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>
+                              {% endfor %}
+                            </ul>
+                            <div class="tab-content">
+                              {% for language in languages %}
+                              <div class="tab-pane" id="tab3-language-{{ language.language_id }}">
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label" for="input-tab3-title">{{ entry_tab_title }}</label>
+                                  <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="theme_butik_tab3_title[{{ language.language_id }}]" value="{{ theme_butik_tab3_title[language.language_id] }}" id="input-tab3-title" />
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label" for="input-tab3-content{{ language.language_id }}">{{ entry_tab_content }}</label>
+                                  <div class="col-sm-10">
+                                    <textarea id="input-tab3-content{{ language.language_id }}" name="theme_butik_tab3_content[{{ language.language_id }}]" cols="50" rows="8" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ theme_butik_tab3_content[language.language_id] }}</textarea>
+                                  </div>
+                                </div>
+                              </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_information }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-information-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_information_status" id="input-information-status" class="form-control">
+                            {% if theme_butik_information_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-information-left-status">{{ entry_information_left }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_information_left" id="input-information-left-status" class="form-control">
+                            {% if theme_butik_information_left %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_contact }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-contact-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_contact_status" id="input-contact-status" class="form-control">
+                            {% if theme_butik_contact_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-contact-left-status">{{ entry_contact_left }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_contact_left" id="input-contact-left-status" class="form-control">
+                            {% if theme_butik_contact_left %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- /// PRODUCT LIST /// -->
+                  <div class="tab-pane" id="tab-product-info">
+                    <fieldset>
+                      <legend>{{ text_product_info }}</legend>
+                    </fieldset>
+                    <fieldset>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-microdata-status">{{ entry_microdata_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_microdata_status" id="input-microdata-status" class="form-control">
+                            {% if theme_butik_microdata_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-zoom-img">{{ entry_zoom_img }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_zoom_img" id="input-zoom-img" class="form-control">
+                            {% if theme_butik_zoom_img %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-scroll-img">{{ entry_scroll_img }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_scroll_img" id="input-scroll-img" class="form-control">
+                            {% if theme_butik_scroll_img %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_manufacturer_img }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-manufacturer-img">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_manufacturer_img" id="input-manufacturer-img" class="form-control">
+                            {% if theme_butik_manufacturer_img %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-image-thumb-width">{{ entry_manufacturer_size_thumb }}</label>
+                        <div class="col-sm-10">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <input type="text" name="theme_butik_manufacturer_thumb_width" value="{{ theme_butik_manufacturer_thumb_width }}" placeholder="{{ entry_width }}" id="input-image-thumb-width" class="form-control" />
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="text" name="theme_butik_manufacturer_thumb_height" value="{{ theme_butik_manufacturer_thumb_height }}" placeholder="{{ entry_height }}" class="form-control" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_soc_code }}</legend>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                            <textarea name="theme_butik_soc_code" rows="5" class="form-control" id="input-soc-code">{{ theme_butik_soc_code }}</textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- /// FOOTER /// -->
+                  <div class="tab-pane" id="tab-footer">
+                    <fieldset>
+                      <legend>{{ entry_footer_column1 }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="input-footer-column1"><span data-toggle="tooltip" title="{{ entry_title_help }}">{{ entry_title_column }}</span></label>
+                        <div class="col-sm-9">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <input type="text" class="form-control" value="{{ theme_butik_footer_column1[language.language_id] ? theme_butik_footer_column1[language.language_id] }}" name="theme_butik_footer_column1[{{ language.language_id }}]" id="input-footer-column1"/>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-contact-status">{{ entry_contact }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_contact_status" id="input-footer-contact-status" class="form-control">
+                            {% if theme_butik_footer_contact_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-sitemap-status">{{ entry_sitemap }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_sitemap_status" id="input-footer-sitemap-status" class="form-control">
+                            {% if theme_butik_footer_sitemap_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_category_link }}</label>
+                        <div class="col-sm-10">
+                          <table id="footer-link-column1" class="table table-striped table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <td class="text-left"><i class="fa fa-edit"></i> {{ text_text }}</td>
+                                <td class="text-left"><i class="fa fa-link"></i> {{ text_add_link }}</td>
+                                <td class="text-right"><i class="fa fa-sort"></i> {{ text_sort }}</td>
+                                <td></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% set footer1_links_row = 0 %}
+                            {% for theme_butik_footer_links_col1_add in theme_butik_footer_links_col1_added %}
+                            <tr id="footer1-links-row{{ footer1_links_row }}">
+                              <td class="text-left">{% for language in languages %}
+                                <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                                  <input type="text" name="theme_butik_footer_links_col1_add[{{ footer1_links_row }}][title][{{ language.language_id }}]" value="{{ theme_butik_footer_links_col1_add.title[language.language_id] }}" class="form-control" />
+                                </div>
+                              {% endfor %}</td>
+                              <td class="text-left" style="width:40%;">{% for language in languages %}
+                                <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                                  <input type="text" name="theme_butik_footer_links_col1_add[{{ footer1_links_row }}][link][{{ language.language_id }}]" value="{{ theme_butik_footer_links_col1_add.link[language.language_id] }}" class="form-control" />
+                                </div>
+                              {% endfor %}</td>
+                              <td class="text-left" style="width:15%;"><input type="text" name="theme_butik_footer_links_col1_add[{{ footer1_links_row }}][sort]" value="{{ theme_butik_footer_links_col1_add.sort }}" class="form-control" /></td>
+                              <td class="text-right"><a class="btn btn-danger" onclick="$('#footer1-links-row{{ footer1_links_row }}').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                            {% set footer1_links_row = footer1_links_row + 1 %}
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="3"></td>
+                                <td class="text-right"><a class="btn btn-primary" onclick="addFooter1Links();" data-toggle="tooltip" title="Добавить"><i class="fa fa-plus-circle"></i></a></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_footer_column2 }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label"><span data-toggle="tooltip" title="{{ entry_title_help }}">{{ entry_title_column }}</span></label>
+                        <div class="col-sm-9">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <input type="text" class="form-control" value="{{ theme_butik_footer_column2[language.language_id] ? theme_butik_footer_column2[language.language_id] : '' }}" name="theme_butik_footer_column2[{{ language.language_id }}]" />
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-account-status">{{ entry_account }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_account_status" id="input-footer-account-status" class="form-control">
+                            {% if theme_butik_footer_account_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-order-status">{{ entry_order }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_order_status" id="input-footer-order-status" class="form-control">
+                            {% if theme_butik_footer_order_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-wishlist-status">{{ entry_wishlist }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_wishlist_status" id="input-footer-wishlist-status" class="form-control">
+                            {% if theme_butik_footer_wishlist_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-newsletter-status">{{ entry_newsletter }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_newsletter_status" id="input-footer-newsletter-status" class="form-control">
+                            {% if theme_butik_footer_newsletter_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-return-status">{{ entry_return }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_return_status" id="input-footer-return-status" class="form-control">
+                              {% if theme_butik_footer_return_status %}
+                                <option value="1" selected="selected">{{ text_enabled }}</option>
+                                <option value="0">{{ text_disabled }}</option>
+                              {% else %}
+                                <option value="1">{{ text_enabled }}</option>
+                                <option value="0" selected="selected">{{ text_disabled }}</option>
+                              {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-manufacturer-status">{{ entry_manufacturer }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_manufacturer_status" id="input-footer-manufacturer-status" class="form-control">
+                            {% if theme_butik_footer_manufacturer_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-voucher-status">{{ entry_voucher }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_voucher_status" id="input-footer-voucher-status" class="form-control">
+                            {% if theme_butik_footer_voucher_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-affiliate-status">{{ entry_affiliate }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_affiliate_status" id="input-footer-affiliate-status" class="form-control">
+                            {% if theme_butik_footer_affiliate_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-special-status">{{ entry_special }}</label>
+                        <div class="col-sm-10">
+                          <select name="theme_butik_footer_special_status" id="input-footer-special-status" class="form-control">
+                            {% if theme_butik_footer_special_status %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                            {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                            {% endif %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_category_link }}</label>
+                        <div class="col-sm-10">
+                          <table id="footer-link-column2" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                              <td class="text-left"><i class="fa fa-edit"></i> {{ text_text }}</td>
+                              <td class="text-left"><i class="fa fa-link"></i> {{ text_add_link }}</td>
+                              <td class="text-right"><i class="fa fa-sort"></i> {{ text_sort }}</td>
+                              <td></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% set footer2_links_row = 0 %}
+                            {% for theme_butik_footer_links_col2_add in theme_butik_footer_links_col2_added %}
+                            <tr id="footer2-links-row{{ footer2_links_row }}">
+                              <td class="text-left">{% for language in languages %}
+                                <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                                  <input type="text" name="theme_butik_footer_links_col2_add[{{ footer2_links_row }}][title][{{ language.language_id }}]" value="{{ theme_butik_footer_links_col2_add.title[language.language_id] }}" class="form-control" />
+                                </div>
+                                {% endfor %}</td>
+                              <td class="text-left" style="width:40%;">{% for language in languages %}
+                                <div class="input-group pull-left"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                                  <input type="text" name="theme_butik_footer_links_col2_add[{{ footer2_links_row }}][link][{{ language.language_id }}]" value="{{ theme_butik_footer_links_col2_add.link[language.language_id] }}" class="form-control" />
+                                </div>
+                                {% endfor %}</td>
+                              <td class="text-left" style="width:15%;"><input type="text" name="theme_butik_footer_links_col2_add[{{ footer2_links_row }}][sort]" value="{{ theme_butik_footer_links_col2_add.sort }}" class="form-control" /></td>
+                              <td class="text-right"><a class="btn btn-danger" onclick="$('#footer2-links-row{{ footer2_links_row }}').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                            {% set footer2_links_row = footer2_links_row + 1 %}
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                              <td colspan="3"></td>
+                              <td class="text-right"><a class="btn btn-primary" onclick="addFooter2Links();" data-toggle="tooltip" title="Добавить"><i class="fa fa-plus-circle"></i></a></td>
+                            </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_footer_column3 }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="input-footer_column3"><span data-toggle="tooltip" title="{{ entry_title_help }}">{{ entry_title_column }}</span></label>
+                        <div class="col-sm-9">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <input type="text" class="form-control" value="{{ theme_butik_footer_column3[language.language_id] ? theme_butik_footer_column3[language.language_id] : '' }}" name="theme_butik_footer_column3[{{ language.language_id }}]" id="input-footer_column3"/>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-phone1">{{ text_phone }} 1</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" value="{{ theme_butik_footer_phone1 ? theme_butik_footer_phone1 : '' }}" name="theme_butik_footer_phone1" id="input-footer-phone1" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-phone2">{{ text_phone }} 2</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" value="{{ theme_butik_footer_phone2 ? theme_butik_footer_phone2 : '' }}" name="theme_butik_footer_phone2" id="input-footer-phone2" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-phone3">{{ text_phone }} 3</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" value="{{ theme_butik_footer_phone3 ? theme_butik_footer_phone3 : '' }}" name="theme_butik_footer_phone3" id="input-footer-phone3" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-phone4">{{ text_phone }} 4</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" value="{{ theme_butik_footer_phone4 ? theme_butik_footer_phone4 : '' }}" name="theme_butik_footer_phone4" id="input-footer-phone4" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-email">{{ entry_email }}</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" value="{{ theme_butik_footer_email ? theme_butik_footer_email : '' }}" name="theme_butik_footer_email" id="input-footer-email" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-skype">{{ entry_skype }}</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" value="{{ theme_butik_footer_skype ? theme_butik_footer_skype : '' }}" name="theme_butik_footer_skype" id="input-footer-skype" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-schedule">{{ entry_schedule }}</label>
+                        <div class="col-sm-10">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <textarea name="theme_butik_footer_schedule[{{ language.language_id }}]" rows="2" class="form-control" id="input-footer-schedule" >{{ theme_butik_footer_schedule[language.language_id] ? theme_butik_footer_schedule[language.language_id] : '' }}</textarea>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-location">{{ entry_location }}</label>
+                        <div class="col-sm-10">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <textarea name="theme_butik_footer_location[{{ language.language_id }}]" rows="2" class="form-control" id="input-footer-location">{{ theme_butik_footer_location[language.language_id] ? theme_butik_footer_location[language.language_id] : '' }}</textarea>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <legend>{{ entry_footer_column4 }}</legend>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-logo">{{ entry_footer_logo }}</label>
+                        <div class="col-sm-10"><a href="" id="thumb-footer-logo" data-toggle="image" class="img-thumbnail"><img src="{{ theme_butik_footer_logo }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+                          <input type="hidden" name="theme_butik_image_footer_logo" value="{{ theme_butik_image_footer_logo }}" id="input-footer-logo" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-footer-about-us">{{ entry_about_us }}</label>
+                        <div class="col-sm-10">
+                          {% for language in languages %}
+                          <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span>
+                            <textarea name="theme_butik_footer_about_us[{{ language.language_id }}]" rows="4" class="form-control" id="input-footer-about-us">{{ theme_butik_footer_about_us[language.language_id] ? theme_butik_footer_about_us[language.language_id] : '' }}</textarea>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- /// SOC-IMG /// -->
+                  <div class="tab-pane" id="tab-soc-footer">
+                    <fieldset>
+                      <legend>{{ text_socials }}</legend>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <table id="soc-image-status" class="table table-striped table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <td class="text-center"><i class="fa fa-image"></i> {{ text_icon }}</td>
+                                <td class="text-left"><i class="fa fa-link"></i> {{ text_add_link }}</td>
+                                <td></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% set soc_image_row = 0 %}
+                              {% for theme_butik_soc_image in theme_butik_soc_images %}
+                              <tr id="soc-image-row{{ soc_image_row }}">
+                                <td class="text-left">
+                                  <a href="" id="thumb-image-soc{{ soc_image_row }}" data-toggle="image" class="img-thumbnail"><img src="{{ theme_butik_soc_image.thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"  /></a>
+                                    <input type="hidden" name="theme_butik_soc_image[{{ soc_image_row }}][image]" value="{{ theme_butik_soc_image.image }}" id="input-image-soc{{ soc_image_row }}" />
+                                </td>
+                                <td class="text-left">
+                                  <input type="text" name="theme_butik_soc_image[{{ soc_image_row }}][link]" value="{{ theme_butik_soc_image.link }}" class="form-control" />
+                                </td>
+                                <td class="text-right">
+                                  <a class="btn btn-danger" onclick="$('#soc-image-row{{ soc_image_row }}').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                              </tr>
+                              {% set soc_image_row = soc_image_row + 1 %}
+                              {% endfor %}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="2"></td>
+                                <td class="text-right"><a class="btn btn-primary" onclick="addSocImage();" data-toggle="tooltip" title="Добавить"><i class="fa fa-plus-circle"></i></a></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <!-- /// PAYMENTS /// -->
+                  <div class="tab-pane" id="tab-payments">
+                    <fieldset>
+                      <legend>{{ text_payments }}</legend>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <table id="payment-image-status" class="table table-striped table-bordered table-hover">
+                            <thead>
+                              <tr>
+                                <td class="text-center"><i class="fa fa-image"></i> {{ text_icon }}</td>
+                                <td class="text-left"><i class="fa fa-link"></i> {{ text_add_link }}</td>
+                                <td></td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% set payment_image_row = 0 %}
+                              {% for theme_butik_payment_image in theme_butik_payment_images %}
+                              <tr id="image-payment-row{{ payment_image_row }}">
+                                <td class="text-left">
+                                  <a href="" id="thumb-image-payment{{ payment_image_row }}" data-toggle="image" class="img-thumbnail"><img src="{{ theme_butik_payment_image.thumb }}" alt="" title="" data-placeholder="{{ placeholder }}"  /></a>
+                                  <input type="hidden" name="theme_butik_payment_image[{{ payment_image_row }}][image]" value="{{ theme_butik_payment_image.image }}" id="input-image-payment{{ payment_image_row }}" />
+                                </td>
+                                <td class="text-left">
+                                  <input type="text" name="theme_butik_payment_image[{{ payment_image_row }}][link]" value="{{ theme_butik_payment_image.link }}" class="form-control" />
+                                </td>
+                                <td class="text-right">
+                                  <a class="btn btn-danger" onclick="$('#image-payment-row{{ payment_image_row }}').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                              </tr>
+                               {% set payment_image_row = payment_image_row + 1 %}
+                              {% endfor %}
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colspan="2"></td>
+                                <td class="text-right"><a class="btn btn-primary" onclick="addPaymentImage();" data-toggle="tooltip" title="Добавить"><i class="fa fa-plus-circle"></i></a></td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="view/javascript/summernote/summernote.js"></script>
+<link href="view/javascript/summernote/summernote.css" rel="stylesheet" />
+<script type="text/javascript" src="view/javascript/summernote/summernote-image-attributes.js"></script>
+<script type="text/javascript" src="view/javascript/summernote/opencart.js"></script>
+<script type="text/javascript"><!--
+
+    $('#language a:first, #language2 a:first,#language3 a:first').tab('show');
+    //--></script>
+<script type="text/javascript">
+    var top_links_row = {{ top_links_row }};
+
+    function addTopLinks() {
+        html  = '<tr id="top-links-row' + top_links_row + '">';
+        html += '<td class="text-left">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_top_link[' + top_links_row + '][title][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left" style="width:40%;">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_top_link[' + top_links_row + '][link][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left"><input class="form-control" type="text" name="theme_butik_top_link[' + top_links_row + '][sort]" size="1" value="" /></td>';
+        html += '<td class="text-right"><a class="btn btn-danger" onclick="$(\'#top-links-row' + top_links_row  + '\').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>';
+        html += '</tr>';
+
+        $('#top-menu-horizontal tbody').append(html);;
+
+        top_links_row++;
+    }
+</script>
+<script type="text/javascript">
+    var phone_header_item_row = {{ phone_header_item_row }}
+
+    function addPhoneHeaderItem() {
+        html  = '<tr id="phone-header-item-row' + phone_header_item_row + '">';
+        html += '<td class="text-left"><input class="form-control" type="text" name="theme_butik_header_phone[' + phone_header_item_row + '][phone]" value="" /></td>';
+        html += '<td class="text-left"><input class="form-control" type="text" name="theme_butik_header_phone[' + phone_header_item_row + '][sort]" size="1" value="" /></td>';
+        html += '<td class="text-right"><a class="btn btn-danger" onclick="$(\'#phone-header-item-row' + phone_header_item_row  + '\').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>';
+        html += '</tr>';
+
+        $('#header-phones-items tbody').append(html);;
+
+        phone_header_item_row++;
+    }
+</script>
+<script type="text/javascript">
+    var menu_links_row = {{ menu_links_row }}
+
+    function addMenuLinks() {
+        html  = '<tr id="menu-links-row' + menu_links_row + '">';
+        html += '<td class="text-left">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_menu_link[' + menu_links_row + '][title][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left" style="width:40%;">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_menu_link[' + menu_links_row + '][link][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left"><input class="form-control" type="text" name="theme_butik_menu_link[' + menu_links_row + '][sort]" size="1" value="" /></td>';
+        html += '<td class="text-right"><a class="btn btn-danger" onclick="$(\'#menu-links-row' + menu_links_row  + '\').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>';
+        html += '</tr>';
+
+        $('#mine-menu-horizontal tbody').append(html);;
+
+        menu_links_row++;
+    }
+</script>
+<script type="text/javascript">
+    var footer1_links_row = {{ footer1_links_row }}
+
+    function addFooter1Links() {
+        html  = '<tr id="footer1-links-row' + footer1_links_row + '">';
+        html += '<td class="text-left">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_footer_links_col1_add[' + footer1_links_row + '][title][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left" style="width:40%;">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_footer_links_col1_add[' + footer1_links_row + '][link][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left"><input class="form-control" type="text" name="theme_butik_footer_links_col1_add[' + footer1_links_row + '][sort]" size="1" value="" /></td>';
+        html += '<td class="text-right"><a class="btn btn-danger" onclick="$(\'#footer1-links-row' + footer1_links_row  + '\').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>';
+        html += '</tr>';
+
+        $('#footer-link-column1 tbody').append(html);;
+
+        footer1_links_row++;
+    }
+</script>
+<script type="text/javascript">
+    var footer2_links_row = {{ footer2_links_row }}
+
+    function addFooter2Links() {
+        html  = '<tr id="footer2-links-row' + footer2_links_row + '">';
+        html += '<td class="text-left">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_footer_links_col2_add[' + footer2_links_row + '][title][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left" style="width:40%;">';
+        {% for language in languages %}
+            html += '<div class="input-group">';
+            html += '<span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /></span><input class="form-control" type="text" name="theme_butik_footer_links_col2_add[' + footer2_links_row + '][link][{{ language.language_id }}]" value="" />';
+            html += '</div>';
+        {% endfor %}
+        html += '</td>';
+        html += '<td class="text-left"><input class="form-control" type="text" name="theme_butik_footer_links_col2_add[' + footer2_links_row + '][sort]" size="1" value="" /></td>';
+        html += '<td class="text-right"><a class="btn btn-danger" onclick="$(\'#footer2-links-row' + footer2_links_row  + '\').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>';
+        html += '</tr>';
+
+        $('#footer-link-column2 tbody').append(html);;
+
+        footer2_links_row++;
+    }
+</script>
+<script type="text/javascript">
+    var soc_image_row = {{ soc_image_row }}
+
+    function addSocImage() {
+        html  = '<tr id="soc-image-row' + soc_image_row + '">';
+        html += '<td class="text-left"><a href="" id="thumb-image-soc' + soc_image_row + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}"  /></a><input type="hidden" name="theme_butik_soc_image[' + soc_image_row + '][image]" value="" id="input-image-soc' + soc_image_row + '" /></td>';
+        html += '<td class="text-left"><input type="text" name="theme_butik_soc_image[' + soc_image_row + '][link]" value="" class="form-control" /></td>';
+        html += '<td class="text-right"><a class="btn btn-danger" onclick="$(\'#soc-image-row' + soc_image_row  + '\').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>';
+        html += '</tr>';
+
+        $('#soc-image-status tbody').append(html);;
+
+        soc_image_row++;
+    }
+</script>
+<script type="text/javascript">
+    var payment_image_row = {{ payment_image_row }}
+
+    function addPaymentImage() {
+        html  = '<tr id="image-payment-row' + payment_image_row + '">';
+        html += '<td class="text-left"><a href="" id="thumb-image-payment' + payment_image_row + '" data-toggle="image" class="img-thumbnail"><img src="{{ placeholder }}"  /></a><input type="hidden" name="theme_butik_payment_image[' + payment_image_row + '][image]" value="" id="input-image-payment' + payment_image_row + '" /></td>';
+        html += '<td class="text-left"><input type="text" name="theme_butik_payment_image[' + payment_image_row + '][link]" value="" class="form-control" /></td>';
+        html += '<td class="text-right"><a class="btn btn-danger" onclick="$(\'#image-payment-row' + payment_image_row  + '\').remove();" data-toggle="tooltip" title="Удалить"><i class="fa fa-trash-o"></i></a></td>';
+        html += '</tr>';
+
+        $('#payment-image-status tbody').append(html);;
+
+        payment_image_row++;
+    }
+</script>
+{{ footer }}

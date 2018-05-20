@@ -1,0 +1,67 @@
+<div class="box-category">
+  <div class="box-heading">{{ heading_title }}</div>
+  <div class="box-content">
+    <ul class="category-menu">
+      {% for category in categories %}
+      {% if category.children %}
+      {% if category.category_id == category_id %}
+      <li><a href="{{ category.href }}" class="active">{{ category.name }}</a>
+      {% else %}
+      <li><a href="{{ category.href }}" >{{ category.name }}</i></a>
+      {% endif %}
+        <ul>
+          {% for child in category.children %}
+          {% if child.children2 %}
+          {% if child.category_id == child_id %}
+          <li><a href="{{ child.href }}" class="active">&nbsp;&nbsp;&nbsp;- {{ child.name }}</a>
+          {% else %}
+          <li><a href="{{ child.href }}" >&nbsp;&nbsp;&nbsp;- {{ child.name }}</a>
+          {% endif %}
+            {% if child.children2 %}
+            <ul>
+              {% for child in child.children2 %}
+              <li class="level-item"><a href="{{ child.href }}" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{ child.name }}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </li>
+          {% else %}
+          {% if child.category_id == child_id %}
+          <li><a href="{{ child.href }}" class="active">&nbsp;&nbsp;&nbsp;- {{ child.name }}</a>
+          {% else %}
+          <li><a href="{{ child.href }}" >&nbsp;&nbsp;&nbsp;- {{ child.name }}</a>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+      {% else %}
+      {% if category.category_id == category_id %}
+      <li><a href="{{ category.href }}" class="active">{{ category.name }}</a></li>
+      {% else %}
+      <li><a href="{{ category.href }}" >{{ category.name }}</a></li>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+      {% if menu_link_add is not empty and butik_category_link_left %}
+      {% for value, key in menu_link_add %}
+        <li><a href="{{ value.link }}">{{ value.title }}</a></li>
+      {% endfor %}
+      {% endif %}
+      {% if butik_information_left and informations %}
+      <li class="dropdown">
+        <a href="javascript:void(0);">{{ text_information }}</a>
+        <ul>
+          {% for information in informations %}
+          <li><a href="{{ information.href }}">&nbsp;&nbsp;&nbsp;- {{ information.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endif %}
+      {% if butik_contact_left %}
+      <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

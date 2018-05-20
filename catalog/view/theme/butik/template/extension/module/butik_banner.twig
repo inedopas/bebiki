@@ -1,0 +1,20 @@
+<div id="butik-banner{{ module }}" class="butik-banner">
+  <div class="row">
+  {% for banner in banners %}
+      {% if banner_columns == 1 %}
+      {% set class = 'col-xs-12 col-sm-12 col-md-12' %}
+      {% elseif banner_columns == 2 %}
+      {% set class = 'col-xs-12 col-sm-6 col-md-6' %}
+      {% elseif banner_columns == 3 %}
+      {% set class = 'col-xs-12 col-sm-4 col-md-4' %}
+      {% elseif banner_columns == 4 %}
+      {% set class = 'col-xs-12 col-sm-3 col-md-3' %}
+      {% endif %}
+    {% if banner.link %}
+    <div class="{{ class }} moderns"><a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" /></a></div>
+    {% else %}
+    <div class="{{ class }} moderns"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" /></div>
+    {% endif %}
+  {% endfor %}
+  </div>
+</div>

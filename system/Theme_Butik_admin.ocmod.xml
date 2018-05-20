@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Theme Butik admin</name>
+    <code>Theme_Butik admin</code>
+    <version>1.1.1</version>
+    <author>DSV</author>
+    <link>https://kreativ.pro/</link>
+
+    <file path="admin/controller/common/column_left.php">
+        <operation error="skip">
+            <search><![CDATA[$sale = array();]]></search>
+            <add position="after"><![CDATA[
+            // Fastorder
+            $this->load->language('catalog/butik_fastorder');
+            if ($this->config->get('module_butik_fastorder_status')) {
+                if ($this->user->hasPermission('access', 'catalog/butik_fastorder')) {
+                    $sale[] = array(
+                        'name'     => $this->language->get('text_fastorder'),
+                        'href'     => $this->url->link('catalog/butik_fastorder', 'user_token=' . $this->session->data['user_token'], true),
+                        'children' => array()
+                    );
+                }
+            }
+
+            // Callback
+            $this->load->language('catalog/butik_callback');
+            if ($this->config->get('module_butik_callback_status')) {
+                if ($this->user->hasPermission('access', 'catalog/butik_callback')) {
+                    $sale[] = array(
+                        'name'     => $this->language->get('text_callback'),
+                        'href'     => $this->url->link('catalog/butik_callback', 'user_token=' . $this->session->data['user_token'], true),
+                        'children' => array()
+                    );
+                }
+            }
+
+            // Cheaper
+            $this->load->language('catalog/butik_cheaper');
+            if ($this->config->get('module_butik_cheaper_status')) {
+                if ($this->user->hasPermission('access', 'catalog/butik_cheaper')) {
+                    $sale[] = array(
+                        'name'     => $this->language->get('text_cheaper'),
+                        'href'     => $this->url->link('catalog/butik_cheaper', 'user_token=' . $this->session->data['user_token'], true),
+                        'children' => array()
+                    );
+                }
+            }
+      ]]></add>
+        </operation>
+    </file>
+
+    <file path="admin/controller/common/header.php">
+        <operation>
+            <search><![CDATA[$this->load->model('user/user');]]></search>
+            <add position="before"><![CDATA[
+        if ($this->config->get('module_butik_fastorder_status')) {
+            $this->load->model('catalog/butik_fastorder');
+            $data['module_butik_fastorder_status'] = $this->config->get('module_butik_fastorder_status');
+            $fastorder_total = $this->model_catalog_butik_fastorder->getTotalFastorders();
+            $data['fastorder_total'] = $fastorder_total;
+            $data['fastorder'] = $this->url->link('catalog/butik_fastorder', 'user_token=' . $this->session->data['user_token'], true);
+        }
+
+        if ($this->config->get('module_butik_callback_status')) {
+            $this->load->model('catalog/butik_callback');
+            $data['module_butik_callback_status'] = $this->config->get('module_butik_callback_status');
+            $callback_total = $this->model_catalog_butik_callback->getTotalCallbacks();
+            $data['callback_total'] = $callback_total;
+            $data['callback'] = $this->url->link('catalog/butik_callback', 'user_token=' . $this->session->data['user_token'], true);
+        }
+
+        if ($this->config->get('module_butik_cheaper_status')) {
+            $this->load->model('catalog/butik_cheaper');
+            $data['module_butik_cheaper_status'] = $this->config->get('module_butik_cheaper_status');
+            $cheaper_total = $this->model_catalog_butik_cheaper->getTotalCheapers();
+            $data['cheaper_total'] = $cheaper_total;
+            $data['cheaper'] = $this->url->link('catalog/butik_cheaper', 'user_token=' . $this->session->data['user_token'], true);
+        }
+            ]]></add>
+        </operation>
+    </file>
+
+    <file path="admin/view/template/common/header.twig">
+        <operation>
+            <search><![CDATA[<ul class="nav navbar-nav navbar-right">]]></search>
+            <add position="after"><![CDATA[
+             {% if module_butik_fastorder_status %}
+              <li><a href="{{ fastorder }}"><span class="label label-danger">{{ fastorder_total }}</span> <i class="fa fa-shopping-cart fa-lg"></i></a></li>
+             {% endif %}
+             {% if module_butik_callback_status %}
+              <li><a href="{{ callback }}"><span class="label label-danger">{{ callback_total }}</span> <i class="fa fa-phone fa-lg"></i></a></li>
+             {% endif %}
+             {% if module_butik_cheaper_status %}
+              <li><a href="{{ cheaper }}"><span class="label label-danger">{{ cheaper_total }}</span> <i class="fa fa-cart-arrow-down fa-lg"></i></a></li>
+             {% endif %}
+            ]]></add>
+        </operation>
+    </file>
+	
+	<file path="admin/controller/catalog/product.php">
+        <operation error="log">
+            <search><![CDATA[$this->load->model('design/layout');]]></search>
+            <add position="before"><![CDATA[
+				$this->load->language('extension/module/butik_additional_tabs');
+                $data['module_butik_additional_tabs_status'] = $this->config->get('module_butik_additional_tabs_status');
+                $data['entry_tab_title'] = $this->language->get('entry_tab_title');
+                $data['entry_tab_description'] = $this->language->get('entry_tab_description');
+                $data['button_add_tab'] = $this->language->get('button_add_tab');
+                $data['tab_additionaltab'] = $this->language->get('tab_additionaltab');
+
+                if ($this->config->get('module_butik_additional_tabs_status')) {
+                    if (isset($this->request->post['product_addtab'])) {
+                        $data['product_addtabs'] = $this->request->post['product_addtab'];
+                    } elseif (isset($this->request->get['product_id'])) {
+                        $data['product_addtabs'] = $this->model_catalog_product->getProductadditionaltabs($this->request->get['product_id']);
+                    } else {
+                        $data['product_addtabs'] = array();
+                    }
+                }
+            ]]></add>
+        </operation>
+    </file>
+
+    <file path="admin/model/catalog/product.php">
+        <operation error="log">
+            <search><![CDATA[if (isset($data['product_attribute'])) {]]></search>
+            <add position="before"><![CDATA[
+                if (isset($data['product_addtab'])) {
+                    foreach ($data['product_addtab'] as $product_addtab) {
+
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_addtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_addtab['sort_order'] . "', status = '" . (int)$product_addtab['status'] . "'");
+
+                        $product_addtab_id = $this->db->getLastId();
+
+                        foreach ($product_addtab['product_addtab_description'] as $language_id => $product_addtab_description) {
+                            $this->db->query("INSERT INTO " . DB_PREFIX . "product_addtab_description SET product_id = '" . (int)$product_id . "', product_addtab_id = '" . (int)$product_addtab_id . "', language_id = '" . (int)$language_id . "', title = '" .  $this->db->escape($product_addtab_description['title']) . "', description = '" .  $this->db->escape($product_addtab_description['description']) . "'");
+                        }
+                    }
+                }
+
+            ]]></add>
+        </operation>
+        <operation error="log">
+            <search><![CDATA[(int)$data['sort_order'] . "', date_modified = NOW() WHERE product_id = '" . (int)$product_id . "'");]]></search>
+            <add position="after"><![CDATA[
+                $this->db->query("DELETE FROM " . DB_PREFIX . "product_addtab WHERE product_id = '" . (int)$product_id . "'");
+                $this->db->query("DELETE FROM " . DB_PREFIX . "product_addtab_description WHERE product_id = '" . (int)$product_id . "'");
+
+                if (isset($data['product_addtab'])) {
+                    foreach ($data['product_addtab'] as $product_addtab) {
+
+                        $this->db->query("INSERT INTO " . DB_PREFIX . "product_addtab SET product_id = '" . (int)$product_id . "',  sort_order = '" . (int)$product_addtab['sort_order'] . "', status = '" . (int)$product_addtab['status'] . "'");
+
+                        $product_addtab_id = $this->db->getLastId();
+
+                        foreach ($product_addtab['product_addtab_description'] as $language_id => $product_addtab_description) {
+                            $this->db->query("INSERT INTO " . DB_PREFIX . "product_addtab_description SET product_id = '" . (int)$product_id . "', product_addtab_id = '" . (int)$product_addtab_id . "', language_id = '" . (int)$language_id . "', title = '" .  $this->db->escape($product_addtab_description['title']) . "', description = '" .  $this->db->escape($product_addtab_description['description']) . "'");
+                        }
+                    }
+                }
+
+            ]]></add>
+        </operation>
+        <operation error="log">
+            <search><![CDATA[public function getProductAttributes($product_id) {]]></search>
+            <add position="before"><![CDATA[
+            public function getProductadditionaltabs($product_id) {
+                $product_addtab_data = array();
+
+                $product_addtab_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_addtab WHERE product_id = '" . (int)$product_id . "'");
+
+                foreach ($product_addtab_query->rows as $product_addtab) {
+                    $product_addtab_description_data = array();
+
+                    $product_addtab_description_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "product_addtab_description WHERE product_id = '" . (int)$product_id . "' AND product_addtab_id = '" . (int)$product_addtab['product_addtab_id'] . "'");
+
+                    foreach ($product_addtab_description_query->rows as $product_addtab_description) {
+                        $product_addtab_description_data[$product_addtab_description['language_id']] = array(
+                            'title' => $product_addtab_description['title'],
+                            'description' => $product_addtab_description['description'],
+                        );
+                    }
+
+                    $product_addtab_data[] = array(
+                        'product_addtab_description'    => $product_addtab_description_data,
+                        'sort_order'                    => $product_addtab['sort_order'],
+                        'status'                        => $product_addtab['status']
+                    );
+                }
+
+                return $product_addtab_data;
+            }
+            ]]></add>
+        </operation>
+    </file>
+
+    <file path="admin/view/template/catalog/product_form.twig">
+        <operation error="log">
+            <search><![CDATA[<li><a href="#tab-links" data-toggle="tab">{{ tab_links }}</a></li>]]></search>
+            <add position="after"><![CDATA[
+            {% if module_butik_additional_tabs_status %}
+            <li><a href="#tab-additionaltab" data-toggle="tab">{{ tab_additionaltab }}</a></li>
+            {% endif %}
+            ]]></add>
+        </operation>
+        <operation error="log">
+            <search><![CDATA[<div class="tab-pane" id="tab-attribute">]]></search>
+            <add position="before"><![CDATA[
+            {% if module_butik_additional_tabs_status %}
+            <div class="tab-pane" id="tab-additionaltab">
+              <div class="col-sm-2">
+                <ul class="nav nav-pills nav-stacked" id="additionaltab">
+                  {% set addtab_row = 0 %}
+                  {% for product_addtab in product_addtabs %}
+                  <li><a href="#tab-addtab{{ addtab_row }}" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-addtab{{ addtab_row }}\']').parent().remove(); $('#tab-addtab{{ addtab_row }}').remove(); $('#additionaltab a:first').tab('show');"></i> {{ tab_additionaltab }} {{ addtab_row }}</a></li>
+                  {% set addtab_row = addtab_row + 1 %}
+                  {% endfor %}
+                  <li id="additionaltab-add"><a onclick="addProducttab();"><i class="fa fa-plus-circle"></i> {{ button_add_tab }}</a></li>
+                </ul>
+              </div>
+              <div class="col-sm-10">
+                <div class="tab-content">
+                  {% set addtab_row = 0 %}
+                  {% for product_addtab in product_addtabs %}
+                  <div class="tab-pane" id="tab-addtab{{ addtab_row }}">
+                    <ul class="nav nav-tabs" id="tab-language{{ addtab_row }}">
+                      {% for language in languages %}
+                      <li><a href="#tab-addtab{{ addtab_row }}-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />  {{ language.name }}</a></li>
+                      {% endfor %}
+                    </ul>
+                    <div class="tab-content">
+                      {% for language in languages %}
+                      <div class="tab-pane" id="tab-addtab{{ addtab_row }}-language{{ language.language_id }}">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="input-tab-title{{ addtab_row }}-language{{ language.language_id }}">{{ entry_tab_title }}</label>
+                          <div class="col-sm-10">
+                            <input type="text" name="product_addtab[{{ addtab_row }}][product_addtab_description][{{ language.language_id }}][title]" placeholder="{{ entry_tab_title }}" id="input-tab-title{{ addtab_row }}-language{{ language.language_id }}" value="{{ product_addtab.product_addtab_description[language.language_id] ? product_addtab.product_addtab_description[language.language_id].title }}" class="form-control"/>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="input-tab-description{{ addtab_row }}-language{{ language.language_id }}">{{ entry_tab_description }}</label>
+                          <div class="col-sm-10">
+                            <textarea name="product_addtab[{{ addtab_row }}][product_addtab_description][{{ language.language_id }}][description]" placeholder="{{ entry_tab_description }}" id="input-tab-description{{ addtab_row }}-language{{ language.language_id }}" class="form-control summernote">{{ product_addtab.product_addtab_description[language.language_id] ? product_addtab.product_addtab_description[language.language_id].description }}</textarea>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-sort-order{{ addtab_row }}">{{ entry_sort_order }}</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="product_addtab[{{ addtab_row }}][sort_order]" value="{{ product_addtab.sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order{{ addtab_row }}" class="form-control" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label" for="input-status{{ addtab_row }}">{{ entry_status }}</label>
+                      <div class="col-sm-10">
+                      <select name="product_addtab[{{ addtab_row }}][status]" id="input-status" class="form-control">
+                      {% if product_addtab.status %}
+                      <option value="1" selected="selected">{{ text_enabled }}</option>
+                      <option value="0">{{ text_disabled }}</option>
+                      {% else %}
+                      <option value="1">{{ text_enabled }}</option>
+                      <option value="0" selected="selected">{{ text_disabled }}</option>
+                      {% endif %}
+                      </select>
+                      </div>
+                    </div>
+                  </div>
+                  {% set addtab_row = addtab_row + 1 %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            ]]></add>
+        </operation>
+        <operation error="log">
+            <search><![CDATA[{{ footer }}]]></search>
+            <add position="before"><![CDATA[
+{% if module_butik_additional_tabs_status %}
+<script type="text/javascript"><!--
+{% set addtab_row = 0 %}
+{% for product_addtab in product_addtabs %}
+{% for language in languages %}
+$('#input-tab-description{{ addtab_row }}-language{{ language.language_id }}').summernote({
+    height: 300
+});
+{% endfor %}
+{% set addtab_row = addtab_row + 1 %}
+{% endfor %}
+//--></script>
+<script type="text/javascript"><!--
+var addtab_row = {{ addtab_row }};
+
+function addProducttab() {
+    html  = '<div id="tab-addtab' + addtab_row + '" class="tab-pane">';
+    html += '  <ul class="nav nav-tabs" id="tab-language' + addtab_row + '">';
+    {% for language in languages %}
+     html += '   <li><a href="#tab-addtab' + addtab_row + '-language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> {{ language.name }}</a></li>';
+    {% endfor %}
+    html += '  </ul>';
+    html += '  <div class="tab-content">';
+    {% for language in languages %}
+    html += '    <div class="tab-pane" id="tab-addtab' + addtab_row + '-language{{ language.language_id }}">';
+    html += '      <div class="form-group">';
+    html += '        <label class="col-sm-2 control-label" for="input-tab-title' + addtab_row + '-language{{ language.language_id }}">{{ entry_tab_title }}</label>';
+    html += '        <div class="col-sm-10">';
+    html += '          <input type="text" name="product_addtab[' + addtab_row + '][product_addtab_description][{{ language.language_id }}][title]" placeholder="{{ entry_tab_title }}" id="input-tab-title' + addtab_row + '-language{{ language.language_id }}" value="" class="form-control"/>';
+    html += '        </div>';
+    html += '      </div>';
+    html += '      <div class="form-group">';
+    html += '        <label class="col-sm-2 control-label" for="input-tab-description' + addtab_row + '-language{{ language.language_id }}">{{ entry_tab_description }}</label>';
+    html += '        <div class="col-sm-10">';
+    html += '          <textarea name="product_addtab[' + addtab_row + '][product_addtab_description][{{ language.language_id }}][description]" placeholder="{{ entry_tab_description }}" id="input-tab-description' + addtab_row + '-language{{ language.language_id }}" class="form-control summernote"></textarea>';
+    html += '        </div>';
+    html += '      </div>';
+    html += '    </div>';
+    {% endfor %}
+    html += '  </div>';
+    html += '  <div class="form-group">';
+    html += '    <label class="col-sm-2 control-label" for="input-status' + addtab_row +'">{{ entry_status }}</label>';
+    html += '    <div class="col-sm-10">';
+    html += '      <select name="product_addtab[' + addtab_row + '][status]" class="form-control"><option value="1">{{ text_enabled }}</option><option value="0">{{ text_disabled }}</option></select>';
+    html += '    </div>';
+    html += '  </div>';
+    html += '  <div class="form-group">';
+    html += '    <label class="col-sm-2 control-label" for="input-sort_order' + addtab_row +'">{{ entry_sort_order }}</label>';
+    html += '    <div class="col-sm-10">';
+    html += '      <input type="text" name="product_addtab[' + addtab_row + '][sort_order]" value="" class="form-control" />';
+    html += '    </div>';
+    html += '  </div>';
+    html += '</div>';
+
+    $('#tab-additionaltab .tab-content').append(html);
+    {% for language in languages %}
+    $('#input-tab-description' + addtab_row + '-language{{ language.language_id }}').summernote({
+        height: 300
+    });
+    {% endfor %}
+    $('#additionaltab a[href=\'#tab-addtab' + addtab_row + '\']').tab('show');
+    $('#tab-language' + addtab_row + ' li:first-child a').tab('show');
+    $('#additionaltab-add').before('<li><a href="#tab-addtab' + addtab_row + '" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$(\'a[href=\\\'#tab-addtab' + addtab_row + '\\\']\').parent().remove(); $(\'#tab-addtab' + addtab_row + '\').remove(); $(\'#additionaltab li a:first\').tab(\'show\');"></i> {{ tab_additionaltab }} ' + addtab_row + '</a></li>');
+    addtab_row++;
+}
+//--></script>
+<script type="text/javascript"><!--
+$('#additionaltab li:first-child a').tab('show');
+{% set addtab_row = 0 %}
+{% for product_addtab in product_addtabs %}
+$('#tab-language{{ addtab_row }} li:first-child a').tab('show');
+{% set addtab_row = addtab_row + 1 %}
+{% endfor %}
+//--></script>
+{% endif %}
+            ]]></add>
+        </operation>
+    </file>
+
+</modification>

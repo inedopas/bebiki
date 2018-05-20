@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+  <h4 class="modal-title"><i class="glyphicon glyphicon-user" aria-hidden="true"></i> {{ text_login }}</h4>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <ul>
+      {% if logged %}
+        <li><a href="{{ account }}" class="btn btn-default btn-block">{{ text_account }}</a></li>
+        <li><a href="{{ order }}" class="btn btn-default btn-block">{{ text_order }}</a></li>
+        <li><a href="{{ transaction }}" class="btn btn-default btn-block">{{ text_transaction }}</a></li>
+        <li><a href="{{ download }}" class="btn btn-default btn-block">{{ text_download }}</a></li>
+        <li><a href="{{ logout }}" class="btn btn-block btn-primary" title="{{ text_logout }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i> {{ text_logout }}</a></li>
+      {% else %}
+        <form id="form-login" method="post" enctype="multipart/form-data">
+          <li>
+            <div class="form-group">
+              <label class="control-label" for="input-email"><strong>{{ entry_email }}</strong></label>
+              <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-password"><strong>{{ entry_password }}</strong></label>
+              <input type="password" name="password" value="{{ password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control" />
+            </div>
+            <button type="button" id="btn-login" class="btn btn-block btn-primary">{{ button_login }}</button>
+            <a href="{{ forgotten }}" class="forgotten">{{ text_forgotten }}</a>
+          </li>
+          <hr>
+          <li><span class="heading">{{ text_new_customer }}</span></li>
+          <li><a href="{{ register }}" class="btn btn-default btn-block">{{ text_register }}</a></li>
+        </form>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+<script type="text/javascript"><!--
+  $('document').ready(function() {
+    $('#btn-login').bind('click', function(){
+      $.ajax({
+        url: 'index.php?route=extension/module/butik_login/login',
+        type: 'post',
+        data: $('#form-login input[type=\'text\'], #form-login input[type=\'password\']').serialize(),
+        dataType: 'json',
+        beforeSend: function() {
+          $('#modal-signin .alert-danger').remove();
+        },
+        success: function(json){
+          if (json['warning']) {
+            $('#modal-signin .modal-header').after('<div class="alert alert-danger" style="margin:5px;"><i class="fa fa-exclamation-circle"></i> ' + json['warning'] + '</div>');
+          } else {
+            $('#modal-signin').modal('hide');
+            window.location.assign('index.php?route=account/account');
+          }
+        }
+      });
+    });
+  });
+//--></script>

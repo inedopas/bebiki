@@ -1,0 +1,38 @@
+{{ header }}
+<div class="container">
+<ul class="breadcrumb">
+  {% for i, breadcrumb in breadcrumbs %}
+    {% if i+1 < breadcrumbs|length %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% else %}
+        <li>{{ breadcrumb.text }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+  <div class="title-category"><h1>{{ heading_title }}</h1></div>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+        <div class="blog-page">
+            {% if image %}
+            <div class="image">
+                <img src="{{ image }}" alt="" title="" class="img-responsive" />
+            </div>
+            {% endif %}
+          {{ description }}
+          <div class="share-block">
+            {{ blog_soc_code }}
+          </div>
+            <p class="text-right"><i class="fa fa-calendar"></i> {{ date_added }}</p>
+        </div>
+        {{ content_bottom }}
+    </div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

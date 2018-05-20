@@ -1,0 +1,288 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-banner-text" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-banner-text" class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
+              {% if error_name %}
+              <div class="text-danger">{{ error_name }}</div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-columns">{{ entry_columns }}</label>
+            <div class="col-sm-10">
+              <select name="banner_text_columns" id="input-columns" class="form-control">
+                <option value="1" {% if banner_text_columns == 1 %}selected="selected" {% endif %}>1</option>
+                <option value="2" {% if banner_text_columns == 2 %}selected="selected" {% endif %}>2</option>
+                <option value="3" {% if banner_text_columns == 3 %}selected="selected" {% endif %}>3</option>
+                <option value="4" {% if banner_text_columns == 4 %}selected="selected" {% endif %}>4</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <select name="status" id="input-status" class="form-control">
+                {% if status %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+            <legend>{{ entry_text_banners }}</legend>
+            <ul id="custom_text_banners" class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#text_banners_1">{{ entry_text_banners_1 }}</a></li>
+                <li><a data-toggle="tab" href="#text_banners_2">{{ entry_text_banners_2 }}</a></li>
+                <li><a data-toggle="tab" href="#text_banners_3">{{ entry_text_banners_3 }}</a></li>
+                <li><a data-toggle="tab" href="#text_banners_4">{{ entry_text_banners_4 }}</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="text_banners_1" class="tab-pane active">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-text-banner1-status">{{ entry_status }}</label>
+                  <div class="col-sm-10">
+                    <select name="butik_text_banner1_status" id="input-text-banner1-status" class="form-control">
+                      {% if butik_text_banner1_status %}
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+                        <option value="0">{{ text_disabled }}</option>
+                      {% else %}
+                        <option value="1">{{ text_enabled }}</option>
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_icon }}</label>
+                  <div class="col-sm-10">
+                    <a href="" id="thumb-icon" data-toggle="image" class="img-thumbnail"><img src="{{ butik_banner_img1 }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+                    <input type="hidden" name="butik_banner_img_icon1" id="input-icon" value="{{ butik_banner_img_icon1 }}" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_title }}</label>
+                  <div class="col-sm-10">
+                    {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description1[{{ language.language_id }}][title]" id="input-heading{{ language.language_id }}" value="{{ banner_description1[language.language_id] ? banner_description1[language.language_id].title }}" class="form-control" />
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_text }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description1[{{ language.language_id }}][text]" id="input-heading{{ language.language_id }}" value="{{ banner_description1[language.language_id] ? banner_description1[language.language_id].text }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_link }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description1[{{ language.language_id }}][link]" id="input-heading{{ language.language_id }}" value="{{ banner_description1[language.language_id] ? banner_description1[language.language_id].link }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div id="text_banners_2" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-text-banner2-status">{{ entry_status }}</label>
+                  <div class="col-sm-10">
+                    <select name="butik_text_banner2_status" id="input-text-banner2-status" class="form-control">
+                      {% if butik_text_banner2_status %}
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+                        <option value="0">{{ text_disabled }}</option>
+                      {% else %}
+                        <option value="1">{{ text_enabled }}</option>
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_icon }}</label>
+                  <div class="col-sm-10">
+                    <a href="" id="thumb-icon2" data-toggle="image" class="img-thumbnail"><img src="{{ butik_banner_img2 }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+                    <input type="hidden" name="butik_banner_img_icon2" id="input-icon2" value="{{ butik_banner_img_icon2 }}" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_title }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description2[{{ language.language_id }}][title]" id="input-heading{{ language.language_id }}" value="{{ banner_description2[language.language_id] ? banner_description2[language.language_id].title }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_text }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description2[{{ language.language_id }}][text]" id="input-heading{{ language.language_id }}" value="{{ banner_description2[language.language_id] ? banner_description2[language.language_id].text }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" >{{ text_link }}</label>
+                    <div class="col-sm-10">
+                        {% for language in languages %}
+                      <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                        <input type="text" name="banner_description2[{{ language.language_id }}][link]" id="input-heading{{ language.language_id }}" value="{{ banner_description2[language.language_id] ? banner_description2[language.language_id].link }}" class="form-control" />
+                      </div>
+                        {% endfor %}
+                    </div>
+                  </div>
+              </div>
+              <div id="text_banners_3" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-text-banner3-status">{{ entry_status }}</label>
+                  <div class="col-sm-10">
+                    <select name="butik_text_banner3_status" id="input-text-banner3-status" class="form-control">
+                      {% if butik_text_banner3_status %}
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+                        <option value="0">{{ text_disabled }}</option>
+                      {% else %}
+                        <option value="1">{{ text_enabled }}</option>
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_icon }}</label>
+                  <div class="col-sm-10">
+                    <a href="" id="thumb-icon3" data-toggle="image" class="img-thumbnail"><img src="{{ butik_banner_img3 }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+                    <input type="hidden" name="butik_banner_img_icon3" id="input-icon3" value="{{ butik_banner_img_icon3 }}" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_title }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description3[{{ language.language_id }}][title]" id="input-heading{{ language.language_id }}" value="{{ banner_description3[language.language_id] ? banner_description3[language.language_id].title }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_text }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description3[{{ language.language_id }}][text]" id="input-heading{{ language.language_id }}" value="{{ banner_description3[language.language_id] ? banner_description3[language.language_id].text }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_link }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description3[{{ language.language_id }}][link]" id="input-heading{{ language.language_id }}" value="{{ banner_description3[language.language_id] ? banner_description3[language.language_id].link }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div id="text_banners_4" class="tab-pane">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-text-banner4-status">{{ entry_status }}</label>
+                  <div class="col-sm-10">
+                    <select name="butik_text_banner4_status" id="input-text-banner4-status" class="form-control">
+                      {% if butik_text_banner4_status %}
+                        <option value="1" selected="selected">{{ text_enabled }}</option>
+                        <option value="0">{{ text_disabled }}</option>
+                      {% else %}
+                        <option value="1">{{ text_enabled }}</option>
+                        <option value="0" selected="selected">{{ text_disabled }}</option>
+                      {% endif %}
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_icon }}</label>
+                  <div class="col-sm-10">
+                    <a href="" id="thumb-icon4" data-toggle="image" class="img-thumbnail"><img src="{{ butik_banner_img4 }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+                    <input type="hidden" name="butik_banner_img_icon4" id="input-icon4" value="{{ butik_banner_img_icon4 }}" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_title }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description4[{{ language.language_id }}][title]" id="input-heading{{ language.language_id }}" value="{{ banner_description4[language.language_id] ? banner_description4[language.language_id].title }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_text }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description4[{{ language.language_id }}][text]" id="input-heading{{ language.language_id }}" value="{{ banner_description4[language.language_id] ? banner_description4[language.language_id].text }}" class="form-control" />
+                    </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" >{{ text_link }}</label>
+                  <div class="col-sm-10">
+                      {% for language in languages %}
+                    <div class="input-group"><span class="input-group-addon"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language[name] }}" /></span>
+                      <input type="text" name="banner_description4[{{ language.language_id }}][link]" id="input-heading{{ language.language_id }}" value="{{ banner_description4[language.language_id] ? banner_description4[language.language_id].link }}" class="form-control" />
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

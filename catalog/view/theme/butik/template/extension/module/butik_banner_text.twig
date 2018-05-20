@@ -1,0 +1,119 @@
+<div class="row">
+<div id="butik-banner-text{{ module }}" class="butik-banner">
+
+      {% if banner_text_columns == 1 or position == 'column_left' or position == 'column_right' %}
+      {% set class_tbanner = 'col-xs-12 col-sm-12 col-md-12' %}
+      {% elseif banner_text_columns == 2 %}
+      {% set class_tbanner = 'col-xs-12 col-sm-6 col-md-6' %}
+      {% elseif banner_text_columns == 3 %}
+      {% set class_tbanner = 'col-xs-12 col-sm-4 col-md-4' %}
+      {% elseif banner_text_columns == 4 %}
+      {% set class_tbanner = 'col-lg-3 col-md-3 col-sm-6 col-xs-12' %}
+      {% endif %}
+
+  {% if butik_text_banner1_status %}
+  <div class="{{ class_tbanner }}">
+    <div class="col-inner ">
+      {% if banner1_link != '' %}
+      <a href="{{ banner1_link }}">
+      {% endif %}
+        <div class="tbanner-box">
+          <div class="tbanner-icon">
+            {% if butik_banner_img1 %}
+            <img src="{{ butik_banner_img1 }}" title="" alt="" />
+            {% endif %}
+          </div>
+          <div class="tbanner-body">
+            <div class="tbanner-content">
+              <h5 class="text-left">{{ banner1_title }}</h5>
+              <p class="text-left">{{ banner1_text }}</p>
+            </div>
+          </div>
+        </div>
+      {% if banner1_link != '' %}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if butik_text_banner2_status %}
+  <div class="{{ class_tbanner }}">
+    <div class="col-inner ">
+      {% if banner2_link != '' %}
+      <a href="<?php echo $banner2_link; ?>">
+      {% endif %}
+        <div class="tbanner-box">
+          <div class="tbanner-icon">
+            {% if butik_banner_img2 %}
+            <img src="{{ butik_banner_img2 }}" title="" alt="" />
+            {% endif %}
+          </div>
+          <div class="tbanner-body">
+            <div class="tbanner-content">
+              <h5 class="text-left">{{ banner2_title }}</h5>
+              <p class="text-left">{{ banner2_text }}</p>
+            </div>
+          </div>
+        </div>
+      {% if banner2_link != '' %}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if butik_text_banner3_status %}
+  <div class="{{ class_tbanner }}">
+    <div class="col-inner ">
+      {% if banner3_link != '' %}
+      <a href="{{ banner3_link }}">
+      {% endif %}
+        <div class="tbanner-box">
+          <div class="tbanner-icon">
+            {% if butik_banner_img3 %}
+            <img src="{{ butik_banner_img3 }}" title="" alt="" />
+            {% endif %}
+          </div>
+          <div class="tbanner-body">
+            <div class="tbanner-content">
+              <h5 class="text-left">{{ banner3_title }}</h5>
+              <p class="text-left">{{ banner3_text }}</p>
+            </div>
+          </div>
+        </div>
+      {% if banner3_link != '' %}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if butik_text_banner4_status %}
+  <div class="{{ class_tbanner }}">
+    <div class="col-inner ">
+      {% if banner4_link != '' %}
+      <a href="{{ banner4_link }}">
+      {% endif %}
+        <div class="tbanner-box">
+          <div class="tbanner-icon">
+            {% if butik_banner_img4 %}
+            <img src="{{ butik_banner_img4 }}" title="" alt="" />
+            {% endif %}
+          </div>
+          <div class="tbanner-body">
+            <div class="tbanner-content">
+              <h5 class="text-left">{{ banner4_title }}</h5>
+              <p class="text-left">{{ banner4_text }}</p>
+            </div>
+          </div>
+        </div>
+      {% if banner4_link != '' %}
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  </div>
+</div>

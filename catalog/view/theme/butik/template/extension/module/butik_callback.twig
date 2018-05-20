@@ -1,0 +1,107 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">×</span></button>
+  <h4 class="modal-title">{{ entry_callback_title }}</h4>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+    <form id="callback-form" action="" method="post" role="form" class="form-horizontal">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group required">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_name }}" id="firstname" class="form-control"/>
+            </div>
+            <div id="name-error" class="text-danger"></div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group required">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+              <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_phone }}" id="telephone" class="form-control"/>
+            </div>
+            <div id="phone-error" class="text-danger"></div>
+          </div>
+        </div>
+        {% if module_butik_callback_time %}
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+              <input type='text' name="time" placeholder="{{ entry_time }}" class="form-control" id="time" />
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% if module_butik_callback_comment %}
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+              <textarea name="comment" placeholder="{{ entry_comment }}" id="comment" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+          {% if text_butik_agree %}
+            <div class="col-md-12">
+              <div class="text-center">{{ text_butik_agree }}
+                  {% if agree %}
+                    <input type="checkbox" name="agree" value="1" checked="checked" />
+                  {% else %}
+                    <input type="checkbox" name="agree" value="1" />
+                  {% endif %}
+                <div id="agree-error" class="text-danger"></div>
+                &nbsp;
+                <button type="button" id="btn_send" class="btn btn-block btn-primary">{{ entry_send_btn }}</button>
+              </div>
+            </div>
+          {% else %}
+            <div class="col-md-12">
+              <button type="button" id="btn_send" class="btn btn-block btn-primary">{{ entry_send_btn }}</button>
+            </div>
+          {% endif %}
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-info text-center" role="alert" id="success-alert" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('document').ready(function() {
+    $('#btn_send').bind('click', function(){
+        $.ajax({
+            url: 'index.php?route=extension/module/butik_callback/send',
+            type: 'post',
+            data: $('#callback-form input[type=\'text\'], #callback-form textarea, #callback-form input[type=\'checkbox\']').serialize(),
+            dataType: 'json',
+            success: function(json){
+                $('.error').remove();
+                if (json['error']){
+                  if (json['error']['firstname']) {
+                    $('#name-error').html(json['error']['firstname']);
+                    $('#firstname').closest('.form-group').addClass('has-error');
+                  }
+                  if (json['error']['telephone']) {
+                    $('#phone-error').html(json['error']['telephone']);
+                    $('#telephone').closest('.form-group').addClass('has-error');
+                  }
+                  {% if text_butik_agree %}
+                  if (json['error']['warning_butik_agree']) {
+                    $('#agree-error').html(json['error']['warning_butik_agree']);
+                  }
+                  {% endif %}
+                }
+                if (json['success']) {
+                    $('#callback-form').hide();
+                    $('#success-alert').show().html('<p>{{ callback_alert }}</p>')
+                }
+            }
+        });
+    });
+});
+//--></script>

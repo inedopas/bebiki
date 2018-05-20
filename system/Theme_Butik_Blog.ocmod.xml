@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Blog Butik</name>
+    <code>blog butik</code>
+    <version>1.1.1</version>
+    <author>DSV</author>
+    <link>https://kreativ.pro/</link>
+
+    <file path="admin/controller/common/column_left.php">
+        <operation error="skip">
+            <search><![CDATA[// Catalog]]></search>
+            <add position="before"><![CDATA[
+            // Blog
+            $this->load->language('catalog/blog');
+            $butik_blog = array();
+
+            if ($this->user->hasPermission('access', 'catalog/blog')) {
+                $butik_blog[] = array(
+                    'name'     => $this->language->get('text_blog_list'),
+                    'href'     => $this->url->link('catalog/blog', 'user_token=' . $this->session->data['user_token'], true),
+                    'children' => array()
+                );
+            }
+
+            if ($this->user->hasPermission('access', 'catalog/blog_setting')) {
+                $butik_blog[] = array(
+                    'name'     => $this->language->get('text_blog_setting'),
+                    'href'     => $this->url->link('catalog/blog_setting', 'user_token=' . $this->session->data['user_token'], true),
+                    'children' => array()
+                );
+            }
+
+            if ($butik_blog) {
+                $data['menus'][] = array(
+                    'id'       => 'blog-butik',
+                    'icon'     => 'fa-pencil-square-o ',
+                    'name'     => $this->language->get('text_blog'),
+                    'href'     => '',
+                    'children' => $butik_blog
+                );
+            }
+      ]]></add>
+        </operation>
+    </file>
+
+    <file path="catalog/controller/startup/seo_url.php">
+        <operation>
+            <search><![CDATA[
+                if ($url[0] == 'information_id') {
+            ]]></search>
+            <add position="before"><![CDATA[
+                if ($url[0] == 'blog_id') {
+                    $this->request->get['blog_id'] = $url[1];
+                }
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+                if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id') {
+            ]]></search>
+            <add position="replace"><![CDATA[
+                if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id' && $url[0] != 'blog_id') {
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+                } elseif (isset($this->request->get['information_id'])) {
+            ]]></search>
+            <add position="before"><![CDATA[
+                } elseif (isset($this->request->get['blog_id'])) {
+                    $this->request->get['route'] = 'information/butik_blog/info';
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+                if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id')) {
+            ]]></search>
+            <add position="replace"><![CDATA[
+                if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id') || ($data['route'] == 'information/butik_blog/info' && $key == 'blog_id')) {
+            ]]></add>
+        </operation>
+    </file>
+
+</modification>

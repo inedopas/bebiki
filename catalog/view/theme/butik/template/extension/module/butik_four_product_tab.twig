@@ -1,0 +1,436 @@
+<div id="product-nav">
+{% set class_bestseller = '' %}{% set class_special = '' %}{% set class_latest = '' %}{% set class_featured = '' %}
+{% if status_bestseller %}
+{% set class_bestseller = 'active' %}
+{% elseif status_special %}
+{% set class_special = 'active' %}
+{% elseif status_latest %}
+{% set class_latest = 'active' %}
+{% elseif status_featured %}
+{% set class_featured = 'active' %}
+{% endif %}
+<ul class="nav nav-tabs">
+  {% if status_bestseller %}
+  <li class="{{ class_bestseller }}"><a href="#tab-bestseller" data-toggle="tab">{{ text_bestseller }}</a></li>
+  {% endif %}
+  {% if status_special %}
+  <li class="{{ class_special }}"><a href="#tab-special" data-toggle="tab">{{ text_special }}</a></li>
+  {% endif %}
+  {% if status_latest %}
+  <li class="{{ class_latest }}"><a href="#tab-latest" data-toggle="tab">{{ text_latest }}</a></li>
+  {% endif %}
+  {% if status_featured %}
+  <li class="{{ class_featured }}"><a href="#tab-featured" data-toggle="tab">{{ text_featured }}</a></li>
+  {% endif %}
+</ul>
+<div class="tab-content">
+  {% if status_bestseller %}
+  <div class="tab-pane {{ class_bestseller }}" id="tab-bestseller">
+    <div class="row">
+      {% if butik_module_scroll %}
+      <div id="product-bestseller" class="scroll-module owl-carousel product-owl">
+      {% endif %}
+        {% for product in bestseller_products %}
+        {% if not butik_module_scroll %}
+        <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        {% endif %}
+          <div class="product-thumb transition">
+            <div class="image">
+              <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />
+                {% if butik_hover_img_status %}
+                <img src="{{ product.additional_img }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive hover-image" />
+                {% endif %}
+              </a>
+              <div class="button-group sl">
+                {% if butik_quickview_status %}
+                <a class="quickview" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_quickview }}" onclick="quickview('{{ product.product_id }}');"><i class="fa fa-eye"></i></a>
+                {% endif %}
+                {% if butik_wishlist_status %}
+                <a class="wishlist" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></a>
+                {% endif %}
+                {% if butik_compare_status %}
+                <a class="compare" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-clone"></i></a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="caption">
+              <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+              {% if butik_short_description_status %}
+              <p>{{ product.description }}</p>
+              {% endif %}
+              {% if product.rating %}
+              <div class="rating">
+                {% for i in 1..5 %}
+                {% if product.rating < i %}
+                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% else %}
+                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% if product.price %}
+              <p class="price">
+                {% if not product.special %}
+                {{ product.price }}
+                {% else %}
+                <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                {% if butik_percentage_status %}
+                <span class="percentage">-{{ product.percentage }}<i>%</i></span>
+                {% endif %}
+                {% endif %}
+                {% if product.tax %}
+                <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                {% endif %}
+              </p>
+              {% endif %}
+            </div>
+            <div class="button-group">
+              {% if product.product_quantity <= 0 and butik_no_product %}
+              <button type="button" class="btn-default" disabled="disabled"><i class="fa fa-warning"></i> <span class="hidden-xs hidden-sm hidden-md disabled">{{ product.entry_stock }}</span></button>
+              {% else %}
+              <button type="button" onclick="cart.add('{{ product.product_id }}');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span></button>
+              {% if butik_fastorder_module %}
+              <button type="button" class="btn-fastordercat" onclick="fastorder('{{ product.product_id }}');" data-toggle="tooltip" title="{{ entry_fastorder_title }}"><i class="fa fa-paper-plane"></i></button>
+              {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% if not butik_module_scroll %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      {% if butik_module_scroll %}
+      </div>
+      {% endif %}
+    </div>
+    {% if butik_module_scroll %}
+    <script type="text/javascript">
+        $('#product-bestseller').owlCarousel({
+            autoPlay : false,
+            items : 4,
+            itemsDesktop : [1199,3],
+            itemsDesktopSmall : [991,3],
+            itemsTablet: [700,2],
+            itemsMobile : [460,1],
+            slideSpeed : 200,
+            paginationSpeed : 300,
+            rewindSpeed : 300,
+            navigation : true,
+            stopOnHover : true,
+            pagination : false,
+            scrollPerPage:true
+        });
+    </script>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if status_special %}
+  <div class="tab-pane {{ class_special }}" id="tab-special">
+    <div class="row">
+      {% if butik_module_scroll %}
+      <div id="product-special" class="scroll-module owl-carousel product-owl">
+      {% endif %}
+        {% for product in special_products %}
+        {% if not butik_module_scroll %}
+        <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        {% endif %}
+          <div class="product-thumb transition">
+            <div class="image">
+              <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />
+                {% if butik_hover_img_status %}
+                <img src="{{ product.additional_img }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive hover-image" />
+                {% endif %}
+              </a>
+              <div class="button-group sl">
+                {% if butik_quickview_status %}
+                <a class="quickview" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_quickview }}" onclick="quickview('{{ product.product_id }}');"><i class="fa fa-eye"></i></a>
+                {% endif %}
+                {% if butik_wishlist_status %}
+                <a class="wishlist" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></a>
+                {% endif %}
+                {% if butik_compare_status %}
+                <a class="compare" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-clone"></i></a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="caption">
+              <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+              {% if butik_short_description_status %}
+              <p>{{ product.description }}</p>
+              {% endif %}
+              {% if product.rating %}
+              <div class="rating">
+                {% for i in 1..5 %}
+                {% if product.rating < i %}
+                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% else %}
+                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% if product.price %}
+              <p class="price">
+                {% if not product.special %}
+                {{ product.price }}
+                {% else %}
+                <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                {% if butik_percentage_status %}
+                <span class="percentage">-{{ product.percentage }}<i>%</i></span>
+                {% endif %}
+                {% endif %}
+                {% if product.tax %}
+                <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                {% endif %}
+              </p>
+              {% endif %}
+            </div>
+            <div class="button-group">
+              {% if product.product_quantity <= 0 and butik_no_product %}
+              <button type="button" class="btn-default" disabled="disabled"><i class="fa fa-warning"></i> <span class="hidden-xs hidden-sm hidden-md disabled">{{ product.entry_stock }}</span></button>
+              {% else %}
+              <button type="button" onclick="cart.add('{{ product.product_id }}');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span></button>
+              {% if butik_fastorder_module %}
+              <button type="button" class="btn-fastordercat" onclick="fastorder('{{ product.product_id }}');" data-toggle="tooltip" title="{{ entry_fastorder_title }}"><i class="fa fa-paper-plane"></i></button>
+              {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% if not butik_module_scroll %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      {% if butik_module_scroll %}
+      </div>
+      {% endif %}
+    </div>
+    {% if butik_module_scroll %}
+    <script type="text/javascript">
+        $('#product-special').owlCarousel({
+            autoPlay : false,
+            items : 4,
+            itemsDesktop : [1199,3],
+            itemsDesktopSmall : [991,3],
+            itemsTablet: [700,2],
+            itemsMobile : [460,1],
+            slideSpeed : 200,
+            paginationSpeed : 300,
+            rewindSpeed : 300,
+            navigation : true,
+            stopOnHover : true,
+            pagination : false,
+            scrollPerPage:true
+        });
+    </script>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if status_latest %}
+  <div class="tab-pane {{ class_latest }}" id="tab-latest">
+    <div class="row">
+      {% if butik_module_scroll %}
+      <div id="product-latest" class="scroll-module owl-carousel product-owl">
+      {% endif %}
+        {% for product in latest_products %}
+        {% if not butik_module_scroll %}
+        <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        {% endif %}
+          <div class="product-thumb transition">
+            <div class="image">
+              <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />
+                {% if butik_hover_img_status %}
+                <img src="{{ product.additional_img }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive hover-image" />
+                {% endif %}
+              </a>
+              <div class="button-group sl">
+                {% if butik_quickview_status %}
+                <a class="quickview" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_quickview }}" onclick="quickview('{{ product.product_id }}');"><i class="fa fa-eye"></i></a>
+                {% endif %}
+                {% if butik_wishlist_status %}
+                <a class="wishlist" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></a>
+                {% endif %}
+                {% if butik_compare_status %}
+                <a class="compare" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-clone"></i></a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="caption">
+              <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+              {% if butik_short_description_status %}
+              <p>{{ product.description }}</p>
+              {% endif %}
+              {% if product.rating %}
+              <div class="rating">
+                {% for i in 1..5 %}
+                {% if product.rating < i %}
+                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% else %}
+                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% if product.price %}
+              <p class="price">
+                {% if not product.special %}
+                {{ product.price }}
+                {% else %}
+                <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                {% if butik_percentage_status %}
+                <span class="percentage">-{{ product.percentage }}<i>%</i></span>
+                {% endif %}
+                {% endif %}
+                {% if product.tax %}
+                <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                {% endif %}
+              </p>
+              {% endif %}
+            </div>
+            <div class="button-group">
+              {% if product.product_quantity <= 0 and butik_no_product %}
+              <button type="button" class="btn-default" disabled="disabled"><i class="fa fa-warning"></i> <span class="hidden-xs hidden-sm hidden-md disabled">{{ product.entry_stock }}</span></button>
+              {% else %}
+              <button type="button" onclick="cart.add('{{ product.product_id }}');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span></button>
+              {% if butik_fastorder_module %}
+              <button type="button" class="btn-fastordercat" onclick="fastorder('{{ product.product_id }}');" data-toggle="tooltip" title="{{ entry_fastorder_title }}"><i class="fa fa-paper-plane"></i></button>
+              {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% if not butik_module_scroll %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      {% if butik_module_scroll %}
+      </div>
+      {% endif %}
+    </div>
+    {% if butik_module_scroll %}
+    <script type="text/javascript">
+        $('#product-latest').owlCarousel({
+            autoPlay : false,
+            items : 4,
+            itemsDesktop : [1199,3],
+            itemsDesktopSmall : [991,3],
+            itemsTablet: [700,2],
+            itemsMobile : [460,1],
+            slideSpeed : 200,
+            paginationSpeed : 300,
+            rewindSpeed : 300,
+            navigation : true,
+            stopOnHover : true,
+            pagination : false,
+            scrollPerPage:true
+        });
+    </script>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if status_featured %}
+  <div class="tab-pane {{ class_featured }}" id="tab-featured">
+    <div class="row">
+      {% if butik_module_scroll %}
+      <div id="product-featured" class="scroll-module owl-carousel product-owl">
+      {% endif %}
+        {% for product in featured_products %}
+        {% if not butik_module_scroll %}
+        <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        {% endif %}
+          <div class="product-thumb transition">
+            <div class="image">
+              <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />
+                {% if butik_hover_img_status %}
+                <img src="{{ product.additional_img }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive hover-image" />
+                {% endif %}
+              </a>
+              <div class="button-group sl">
+                {% if butik_quickview_status %}
+                <a class="quickview" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_quickview }}" onclick="quickview('{{ product.product_id }}');"><i class="fa fa-eye"></i></a>
+                {% endif %}
+                {% if butik_wishlist_status %}
+                <a class="wishlist" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></a>
+                {% endif %}
+                {% if butik_compare_status %}
+                <a class="compare" href="javascript:void(0);" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-clone"></i></a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="caption">
+              <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+              {% if butik_short_description_status %}
+              <p>{{ product.description }}</p>
+              {% endif %}
+              {% if product.rating %}
+              <div class="rating">
+                {% for i in 1..5 %}
+                {% if product.rating < i %}
+                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% else %}
+                <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% if product.price %}
+              <p class="price">
+                {% if not product.special %}
+                {{ product.price }}
+                {% else %}
+                <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                {% if butik_percentage_status %}
+                <span class="percentage">-{{ product.percentage }}<i>%</i></span>
+                {% endif %}
+                {% endif %}
+                {% if product.tax %}
+                <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                {% endif %}
+              </p>
+              {% endif %}
+            </div>
+            <div class="button-group">
+              {% if product.product_quantity <= 0 and butik_no_product %}
+              <button type="button" class="btn-default" disabled="disabled"><i class="fa fa-warning"></i> <span class="hidden-xs hidden-sm hidden-md disabled">{{ product.entry_stock }}</span></button>
+              {% else %}
+              <button type="button" onclick="cart.add('{{ product.product_id }}');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span></button>
+              {% if butik_fastorder_module %}
+              <button type="button" class="btn-fastordercat" onclick="fastorder('{{ product.product_id }}');" data-toggle="tooltip" title="{{ entry_fastorder_title }}"><i class="fa fa-paper-plane"></i></button>
+              {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% if not butik_module_scroll %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      {% if butik_module_scroll %}
+      </div>
+      {% endif %}
+    </div>
+  {% if butik_module_scroll %}
+    <script type="text/javascript">
+        $('#product-featured').owlCarousel({
+            autoPlay : false,
+            items : 4,
+            itemsDesktop : [1199,3],
+            itemsDesktopSmall : [991,3],
+            itemsTablet: [700,2],
+            itemsMobile : [460,1],
+            slideSpeed : 200,
+            paginationSpeed : 300,
+            rewindSpeed : 300,
+            navigation : true,
+            stopOnHover : true,
+            pagination : false,
+            scrollPerPage:true
+        });
+    </script>
+  {% endif %}
+  </div>
+  {% endif %}
+
+</div>
+</div>

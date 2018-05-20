@@ -1,0 +1,83 @@
+{{ header }}
+<div class="container">
+  <ul class="breadcrumb">
+    {% for i, breadcrumb in breadcrumbs %}
+      {% if i+1 < breadcrumbs|length %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+      {% else %}
+        <li>{{ breadcrumb.text }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  <div class="title-category"><h1>{{ heading_title }}</h1></div>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <div class="blog-filter">
+        <div class="row">
+          <div class="col-md-7 col-sm-4 col-xs-12"></div>
+          <div class="col-md-3 col-sm-5 col-xs-8">
+            <div class="form-group input-group input-group-sm">
+              <label class="input-group-addon hidden-xs" for="input-sort">{{ text_sort }}</label>
+              <select id="input-sort" class="form-control" onchange="location = this.value;">
+                {% for sorts in sorts %}
+                {% if sorts.value == '%s-%s'|format(sort, order) %}
+                <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+                {% else %}
+                <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-4">
+            <div class="form-group input-group input-group-sm">
+              <label class="input-group-addon" for="input-limit"><span class="hidden-xs">{{ text_limit }}</span></label>
+              <select id="input-limit" class="form-control" onchange="location = this.value;">
+                {% for limits in limits %}
+                {% if limits.value == limit %}
+                <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>
+                {% else %}
+                <option value="{{ limits.href }}">{{ limits.text }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+        {% for blog in blogs %}
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div class="blog-thumb">
+            {% if blog.thumb %}
+            <div class="image">
+                <a href="{{ blog.href }}"><img src="{{ blog.thumb }}" alt="{{ blog.title }}" title="{{ blog.title }}" class="img-responsive" /></a>
+            </div>
+            {% endif %}
+            <div class="blog-article">
+                <h4><a class="name" href="{{ blog.href }}">{{ blog.title }}</a></h4>
+                <div class="description">{{ blog.description }}</div>
+                <div class="post-meta">
+                    <a class="blog-preview-btn" href="{{ blog.href }}"><i class="fa fa-file-text"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_readmore }}</span></a>
+                    <span class="article-date"><i class="fa fa-calendar"></i> {{ blog.data_added }}</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-left">{{ pagination }}</div>
+            <div class="col-sm-6 text-right">{{ results }}</div>
+        </div>
+        {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }}

@@ -1,0 +1,135 @@
+{% if butik_fixed_menu %}
+<div class="menu-wrapper">
+{% endif %}
+{% if categories %}
+<div class="container">
+  <nav id="menu" class="navbar">
+    <div class="navbar-header"><span id="category" class="visible-xs">{{ text_category }}</span>
+      <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
+        {% if butik_home_link %}
+        <li><a href="{{ home }}">{{ text_home }}</a></li>
+        {% endif %}
+        {% for category in categories %}
+        {% if category.children %}
+        <li class="dropdown"><a href="{{ category.href }}" class="dropdown-toggle">{{ category.name }}</a>
+          {% if category.column == 1 %}
+            {% set box_child = 'level2-1' %}
+          {% elseif category.column >= 2 %}
+            {% set box_child = 'level2-2' %}
+          {% endif %}
+          <div class="dropdown-menu">
+            <div class="dropdown-inner"> {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+              <ul class="list-unstyled">
+                {% for child in children %}
+                <li class="{{ box_child }}">
+                  {% if butik_category_thumb and child.thumb %}
+                    <span class="hidden-xs hidden-sm"><img src="{{ child.thumb }}" alt="{{ child.name }}" class="category-img" /></span>
+                  {% endif %}
+                  {% if child.sub_children %}
+                    <a href="{{ child.href }}" class="submenu1">{{ child.name }}</a>
+                    <ul class="list-unstyled level3">
+                      {% for sub_child in child.sub_children %}
+                      <li><a href="{{ sub_child.href }}" > {{ sub_child.name }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <a href="{{ child.href }}">{{ child.name }}</a></a>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+              {% endfor %}</div>
+            </div>
+        </li>
+        {% else %}
+        <li><a href="{{ category.href }}">{{ category.name }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if menu_link_add is not empty %}
+        {% for key, value in menu_link_add %}
+        <li><a href="{{ value.link }}">{{ value.title }}</a></li>
+        {% endfor %}
+        {% endif %}
+        {% if butik_brands_status %}
+        <li class="menu-manufacturer dropdown hidden-xs hidden-sm">
+          <a class="arrow" href="{{ manufacturer }}">{{ title_brands }}</a>
+          <div class="dropdown-menu menu-manufacturer-dropdown">
+            <div class="dropdown-inner">
+              <ul class="list-unstyled">
+                {% if manufacturers %}
+                {% set counter = 0 %}
+                {% for manufacturer in manufacturers %}
+                <li>
+                  <a href="{{ manufacturer.href }}" class="menu-manufacturer-img">
+                    <img src="{{ manufacturer.image }}" title="{{ manufacturer.name }}" alt="{{ manufacturer.name }}" />
+                  </a>
+                  <a href="{{ manufacturer.href }}">{{ manufacturer.name }}</a>
+                </li>
+                {% set counter = counter + 1 %}
+                {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </li>
+        {% endif %}
+        {% if butik_html_block_status1 %}
+        <li class="dropdown html-block hidden-sm hidden-xs">
+          <a href="javascript:void(0);">{{ html_title1 }}</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-inner">
+              {{ html_content1 }}
+            </div>
+          </div>
+        </li>
+        {% endif %}
+        {% if butik_html_block_status2 %}
+        <li class="dropdown html-block hidden-sm hidden-xs">
+          <a href="javascript:void(0);">{{ html_title2 }}</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-inner">
+              {{ html_content2 }}
+            </div>
+          </div>
+        </li>
+       {% endif %}
+        {% if butik_html_block_status3 %}
+        <li class="dropdown html-block hidden-sm hidden-xs">
+          <a href="javascript:void(0);">{{ html_title3 }}</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-inner">
+              {{ html_content3 }}
+            </div>
+          </div>
+        </li>
+        {% endif %}
+        {% if butik_information_status %}
+        {% if informations %}
+        <li class="dropdown">
+          <a href="javascript:void(0);">{{ text_information }}</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-inner">
+              <ul class="list-unstyled">
+                {% for information in informations %}
+                <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% if butik_contact_status %}
+        <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+</div>
+{% endif %}
+{% if butik_fixed_menu %}
+</div>
+{% endif %}
