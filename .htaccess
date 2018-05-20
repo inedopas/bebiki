@@ -30,6 +30,29 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
 RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA]
 
+RewriteCond %{QUERY_STRING} ^route=information/blog$ [NC]
+RewriteRule ^index\.php$ /news/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/special$ [NC]
+RewriteRule ^index\.php$ /sale/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/contact$ [NC]
+RewriteRule ^index\.php$ /contacts/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/information&information_id=4$ [NC]
+RewriteRule ^index\.php$ /about-us/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/information&information_id=6$ [NC]
+RewriteRule ^index\.php$ /dostavka/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=account/login$ [NC]
+RewriteRule ^index\.php$ /cabinet/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=account/register$ [NC]
+RewriteRule ^index\.php$ /reg/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/testimonial$ [NC]
+RewriteRule ^index\.php$ /otziv/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=information/sitemap$ [NC]
+RewriteRule ^index\.php$ /sitemap/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/testimonial$ [NC]
+RewriteRule ^index\.php$ /otziv/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^route=product/testimonial$ [NC]
+RewriteRule ^index\.php$ /otziv/? [R=301,L]
+
 ### Additional Settings that may need to be enabled for some servers
 ### Uncomment the commands by removing the # sign in front of it.
 ### If you get an "Internal Server Error 500" after enabling any of the following settings, restore the # as this means your host doesn't allow that.
