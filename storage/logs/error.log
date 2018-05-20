@@ -75,3 +75,100 @@
 2018-05-20 1:00:01 - PHP Notice:  Undefined index: HTTP_USER_AGENT in /var/www/html/catalog/controller/extension/module/d_ajax_search.php on line 27
 2018-05-20 1:02:25 - PHP Notice:  Undefined index: HTTP_USER_AGENT in /var/www/html/catalog/controller/extension/module/d_ajax_search.php on line 27
 2018-05-20 6:47:31 - PHP Notice:  getimagesize(): Read error! in /var/www/html/storage/modification/catalog/model/tool/image.php on line 14
+2018-05-20 10:32:07 - PHP Notice:  Undefined index: HTTP_USER_AGENT in /var/www/html/catalog/controller/extension/module/d_ajax_search.php on line 27
+2018-05-20 12:39:22 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:22 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:22 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:22 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:22 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:22 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:38 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:38 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:38 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:38 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:38 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:38 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:40 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:40 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:40 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:40 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:40 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:40 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:44 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:44 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:44 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:44 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:44 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:39:44 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 107
+2018-05-20 12:56:13 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:13 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:13 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:13 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:13 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:13 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:13 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:13 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:16 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:17 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:17 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:17 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:17 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:18 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:18 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:18 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:18 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:19 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:23 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:56:24 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:36 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Undefined variable: query in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 12:57:38 - PHP Notice:  Trying to get property of non-object in /var/www/html/storage/modification/catalog/controller/startup/seo_url.php on line 101
+2018-05-20 13:01:55 - PHP Notice:  Undefined index: HTTP_USER_AGENT in /var/www/html/catalog/controller/extension/module/d_ajax_search.php on line 27
+2018-05-20 13:18:43 - PHP Notice:  getimagesize(): Read error! in /var/www/html/storage/modification/catalog/model/tool/image.php on line 14
+2018-05-20 13:18:48 - PHP Notice:  getimagesize(): Read error! in /var/www/html/storage/modification/catalog/model/tool/image.php on line 14
+2018-05-20 13:18:48 - PHP Notice:  getimagesize(): Read error! in /var/www/html/storage/modification/catalog/model/tool/image.php on line 14
+2018-05-20 13:18:48 - PHP Notice:  getimagesize(): Read error! in /var/www/html/storage/modification/catalog/model/tool/image.php on line 14
+2018-05-20 13:19:10 - PHP Notice:  getimagesize(): Read error! in /var/www/html/admin/model/tool/image.php on line 14
+2018-05-20 13:19:13 - PHP Notice:  getimagesize(): Read error! in /var/www/html/admin/model/tool/image.php on line 14
+2018-05-20 13:20:35 - PHP Notice:  getimagesize(): Read error! in /var/www/html/admin/model/tool/image.php on line 14
