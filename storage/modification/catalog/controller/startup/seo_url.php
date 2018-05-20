@@ -41,14 +41,14 @@ class ControllerStartupSeoUrl extends Controller {
                 if ($url[0] == 'blog_id') {
                     $this->request->get['blog_id'] = $url[1];
                 }
-
+            
 					if ($url[0] == 'information_id') {
 						$this->request->get['information_id'] = $url[1];
 					}
 
-
+					
                 if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id' && $url[0] != 'blog_id') {
-
+            
 						$this->request->get['route'] = $query->row['query'];
 					}
 				} else {
@@ -68,7 +68,7 @@ class ControllerStartupSeoUrl extends Controller {
 
                 } elseif (isset($this->request->get['blog_id'])) {
                     $this->request->get['route'] = 'information/butik_blog/info';
-
+            
 				} elseif (isset($this->request->get['information_id'])) {
 					$this->request->get['route'] = 'information/information';
 				}
@@ -87,9 +87,9 @@ class ControllerStartupSeoUrl extends Controller {
 
 		foreach ($data as $key => $value) {
 			if (isset($data['route'])) {
-
+				
                 if (($data['route'] == 'product/product' && $key == 'product_id') || (($data['route'] == 'product/manufacturer/info' || $data['route'] == 'product/product') && $key == 'manufacturer_id') || ($data['route'] == 'information/information' && $key == 'information_id') || ($data['route'] == 'information/butik_blog/info' && $key == 'blog_id')) {
-
+            
 					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "' AND language_id = '" . (int)$this->config->get('config_language_id') . "'");
 
 					if ($query->num_rows && $query->row['keyword']) {
@@ -98,15 +98,9 @@ class ControllerStartupSeoUrl extends Controller {
 						unset($data[$key]);
 					}
 				} elseif ($data['route'] == 'common/home') {
-					$url .= '/';
+					$url .= '/'; 					
 					unset($data[$key]);
-				}
-
-
-
-
-
-				elseif ($key == 'path') {
+				} elseif ($key == 'path') {
 					$categories = explode('_', $value);
 
 					foreach ($categories as $category) {
@@ -124,12 +118,6 @@ class ControllerStartupSeoUrl extends Controller {
 					unset($data[$key]);
 				}
 			}
-
-			elseif ($data['route'] == 'product/special') {
-			 $url .= '/' .'sale';
-			 unset($data[$key]);
-			}
-
 		}
 
 		if ($url) {

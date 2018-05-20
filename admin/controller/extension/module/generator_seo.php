@@ -16,6 +16,7 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
             'generator_seo_products_suffix' => '.html',
             'generator_seo_manufacturers_template' => '[manufacturer_name]',
             'generator_seo_manufacturers_suffix' => '.html',
+            'generator_seo_description_template' => '[product_name], [model_name], [manufacturer_name], [categories_names]',
             'generator_seo_meta_template' => '[product_name], [model_name], [manufacturer_name], [categories_names]',
             'generator_seo_tags_template' => '[product_name], [model_name], [manufacturer_name], [categories_names]',
         ));
@@ -41,6 +42,9 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
             if (isset($this->request->post['manufacturers'])) {
                 $this->model_module_generator_seo->generateManufacturers($this->request->post['manufacturers_template'], $this->request->post['manufacturers_suffix'], $this->request->post['overwrite_manufacturers'] == 'overwrite', $this->request->post['do_transliteration']);
             }
+           if (isset($this->request->post['meta_description'])) {
+                $this->model_module_generator_seo->generateProductsMetaDescription($this->request->post['description_template'], $this->request->post['do_transliteration']);
+            }
             if (isset($this->request->post['meta_keywords'])) {
                 $this->model_module_generator_seo->generateProductsMetaKeywords($this->request->post['meta_template'], $this->request->post['do_transliteration']);
             }
@@ -58,6 +62,7 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
                 'generator_seo_products_suffix' => $this->request->post['products_suffix'],
                 'generator_seo_manufacturers_template' => $this->request->post['manufacturers_template'],
                 'generator_seo_manufacturers_suffix' => $this->request->post['manufacturers_suffix'],
+                'generator_seo_description_template' => $this->request->post['description_template'],
                 'generator_seo_meta_template' => $this->request->post['meta_template'],
                 'generator_seo_tags_template' => $this->request->post['tags_template'],
             ));
@@ -103,6 +108,11 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
         } else {
             $data['manufacturers_suffix'] = $this->config->get('generator_seo_manufacturers_suffix');
         }
+        if (isset($this->request->post['description_template'])) {
+            $data['description_template'] = $this->request->post['description_template'];
+        } else {
+            $data['description_template'] = $this->config->get('generator_seo_description_template');
+        }
         if (isset($this->request->post['meta_template'])) {
             $data['meta_template'] = $this->request->post['meta_template'];
         } else {
@@ -113,7 +123,7 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
         } else {
             $data['tags_template'] = $this->config->get('generator_seo_tags_template');
         }
-        
+
         $data['languages'] = $this->model_module_generator_seo->getLanguages();
         $data['breadcrumbs'] = array();
         $data['breadcrumbs'][] = array('href' => HTTPS_SERVER . 'index.php?route=common/home&user_token=' . $this->session->data['user_token'], 'text' => $this->language->get('text_home'), 'separator' => FALSE);
@@ -144,4 +154,4 @@ class ControllerExtensionModuleGeneratorSEO extends Controller
             return false;
         }
     }
-} 
+}

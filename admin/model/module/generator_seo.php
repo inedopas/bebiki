@@ -17,7 +17,7 @@ class ModelModuleGeneratorSEO extends Model
                 $slugs[] = $uniqueSlug;
 
                 $this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'category_id=" . (int)$category['category_id'] . "' AND language_id = '". $lang['language_id']."'");
-               
+
                 $this->db->query("INSERT INTO " . DB_PREFIX . "seo_url SET store_id='0', language_id='".$lang['language_id']."', query = 'category_id=" . (int)$category['category_id'] . "', keyword = '" . $this->db->escape($uniqueSlug) . "'");
             }
         }
@@ -42,7 +42,7 @@ class ModelModuleGeneratorSEO extends Model
                 $slugs[] = $uniqueSlug;
 
                 $this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'product_id=" . (int)$product['product_id'] . "' AND language_id = '". $lang['language_id']."'");
-               
+
                 $this->db->query("INSERT INTO " . DB_PREFIX . "seo_url SET store_id='0', language_id='".$lang['language_id']."', query = 'product_id=" . (int)$product['product_id'] . "', keyword = '" . $this->db->escape($uniqueSlug) . "'");
             }
         }
@@ -64,6 +64,32 @@ class ModelModuleGeneratorSEO extends Model
             $languages = $this->getLanguagesArray();
             foreach ($languages as $lang)
             $this->db->query("INSERT INTO " . DB_PREFIX . "seo_url SET store_id='0', language_id='".$lang['language_id']."', query = 'manufacturer_id=" . (int)$manufacturer['manufacturer_id'] . "', keyword = '" . $this->db->escape($uniqueSlug).($lang['language_id']==$this->config->get('config_language_id') ? '' : '-' . $lang['language_id']) . "'");
+        }
+    }
+
+    public function generateProductsMetaDescription($template, $transliterate)
+    {
+        $products = $this->getProductsForMetaDescription();
+        foreach ($products as $product) {
+            $finalCategories = array();
+            $categories = $this->getProductCategories($product['product_id'], $product['language_id']);
+            foreach ($categories as $category) {
+                $finalCategories[] = $category['name'];
+            }
+            $tags = array('[product_name]' => $product['name'],
+                '[model_name]' => $product['model'],
+                '[manufacturer_name]' => $product['manufacturer_name'],
+                '[categories_names]' => implode(',', $finalCategories)
+
+            );
+            $finalKeywords = array();
+            $keywords = explode(',', strtr($template, $tags));
+            foreach ($keywords as $keyword) {
+                $finalKeywords[] = ($transliterate ? $this->makeSlugs(trim($keyword), 0, false) : trim($keyword));
+            }
+            $finalKeywords = array_filter(array_unique($finalKeywords));
+            $finalKeywords = implode(', ', $finalKeywords);
+            $this->db->query("UPDATE " . DB_PREFIX . "product_description SET meta_description = '" . $this->db->escape($finalKeywords) . "' where product_id = " . (int)$product['product_id'] . " and language_id = " . (int)$product['language_id']);
         }
     }
 
@@ -169,6 +195,11 @@ class ModelModuleGeneratorSEO extends Model
         return $query->rows;
     }
 
+    private function getProductsForMetaDescription()
+    {
+        $query = $this->db->query("SELECT p.product_id, pd.name, p.model, m.name as manufacturer_name, pd.description, pd.language_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) ORDER BY pd.name ASC");
+        return $query->rows;
+    }
     private function getProductsForMetaKeywords()
     {
         $query = $this->db->query("SELECT p.product_id, pd.name, p.model, m.name as manufacturer_name, pd.description, pd.language_id FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "manufacturer m ON (p.manufacturer_id = m.manufacturer_id) ORDER BY pd.name ASC");
