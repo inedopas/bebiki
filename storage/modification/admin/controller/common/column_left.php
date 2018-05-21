@@ -597,6 +597,14 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 			
+			
+			if ($this->user->hasPermission('access', 'localisation/city')) {
+				$localisation[] = array(
+					'name'	   => $this->language->get('text_city'),
+					'href'     => $this->url->link('localisation/city', 'user_token=' . $this->session->data['user_token'], true),
+					'children' => array()		
+				);
+			}
 			if ($this->user->hasPermission('access', 'localisation/geo_zone')) {
 				$localisation[] = array(
 					'name'	   => $this->language->get('text_geo_zone'),
@@ -684,16 +692,6 @@ class ControllerCommonColumnLeft extends Controller {
 				);	
 			}
 						
-    
-
-          if ($this->user->hasPermission('access', 'extension/module/seo_urls')) {
-            $maintenance[] = array(
-              'name'     => 'SEO URLs',
-              'href'     => $this->url->link('extension/module/seo_urls', 'user_token=' . $this->session->data['user_token'], true),
-              'children' => array()   
-            );
-          }
-            
 			if ($this->user->hasPermission('access', 'tool/log')) {
 				$maintenance[] = array(
 					'name'	   => $this->language->get('text_log'),
