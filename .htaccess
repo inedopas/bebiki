@@ -30,6 +30,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
 RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA]
 
+#RewriteCond %{QUERY_STRING} ^route=product/compare$ [NC]
+#RewriteRule ^index\.php$ /compare/? [R=301,L]
+
 #RewriteCond %{QUERY_STRING} ^route=information/blog$ [NC]
 #RewriteRule ^index\.php$ /news/? [R=301,L]
 #RewriteCond %{QUERY_STRING} ^route=product/special$ [NC]
